@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:57:07 by syakovle          #+#    #+#             */
-/*   Updated: 2023/09/21 00:09:24 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/23 20:25:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 
 typedef struct s_player
 {
-	int		pos_y;
-	int		pos_x;
+	float	pos_y;
+	float	pos_x;
+	float	delta_x;
+	float	delta_y;
 	bool	z;
 	bool	q;
 	bool	s;
@@ -45,6 +47,9 @@ typedef struct s_mlx
 	int 		win_x;
 	int 		win_y;
 	t_data		img_font;
+	t_data		img_wall;
+	t_data		img_ground;
+	t_data		img_player;
 	t_player	player;
 }				t_mlx;
 
