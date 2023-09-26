@@ -14,3 +14,6 @@ typedef struct	s_pars {
 }				t_pars;
 
 char	*get_next_line(int fd);
+char	**ft_split(char const *s, char c);
+int		ft_atoi(const char *nptr);
+char	*ft_strdup(const char *s);
