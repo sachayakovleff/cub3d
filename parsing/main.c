@@ -179,6 +179,7 @@ int	map_minim(char **map)
 	int	count;
 
 	y = 0;
+	count = 0;
 	while (map[y])
 	{
 		x = 0;
