@@ -21,6 +21,8 @@ void	free_strings_tab(char **str_tab)
 	int	i;
 
 	i = 0;
+	if (!str_tab)
+		return ;
 	while (str_tab[i])
 	{
 		free(str_tab[i]);
@@ -35,6 +37,7 @@ void	free_pars_struct(t_pars *pars)
 	free(pars->s_texture);
 	free(pars->e_texture);
 	free(pars->w_texture);
+	free_strings_tab(pars->map);
 }
 
 int	infos_complete(t_pars *pars)
@@ -146,9 +149,79 @@ int	str_is_valid(char *str, t_pars *pars)
 	return (0);
 }
 
-int	map_valid()
+int	is_map_valid2(char **map)
 {
-	return (0);
+	int	x;
+	int	y;
+
+	y = 1;
+	while (map[y] && map[y + 1])
+	{
+		x = 1;
+		while (map[y][x] && map[y][x + 1])
+		{
+			if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' || map[y][x] == 'W')
+			{
+				if (map[y - 1][x] == ' ' || map[y + 1][x] == ' ' || map[y][x - 1] == ' ' || map[y][x + 1] == ' ')
+					return (0);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
+int	map_minim(char **map)
+{
+	int	x;
+	int	y;
+	int	count;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' || map[y][x] == 'W')
+				count++;
+			x++;
+		}
+		y++;
+	}
+	if (count != 1)
+		return (0);
+	return (1);
+}
+
+int	is_map_valid(char **map)
+{
+	int	x;
+	int	y;
+	int	len;
+
+	if (!map)
+		return (0);
+	if (!map_minim(map))
+		return (0);
+	y = 0;
+	while (map[y])
+	{
+		len = ft_strlen(map[y]);
+		x = 0;
+		while (map[y][x])
+		{
+			if (y == 0 || x == 0 || x == (len - 1) || !(map[y + 1]))
+			{
+				if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'E' || map[y][x] == 'W')
+					return (0);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (is_map_valid2(map));
 }
 
 char	**realloc_tab(char **tab, char *str)
@@ -157,19 +230,25 @@ char	**realloc_tab(char **tab, char *str)
 	int		i;
 
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 	{
 		i++;
 	}
 	ret = malloc(sizeof(char *) * (i + 2));
+	if (!ret)
+		return (NULL);
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 	{
 		ret[i] = ft_strdup(tab[i]);
+		if (!ret[i])
+			return (NULL);
 		i++;
 	}
 	free_strings_tab(tab);
 	ret[i] = ft_strdup(str);
+	if (!ret[i])
+		return (NULL);
 	ret[i + 1] = NULL;
 	return (ret);
 }
@@ -181,11 +260,50 @@ int	str_is_valid_map(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != '0' || str[i] != '1' || str[i] != 'N' || str[i] != 'S' || str[i] != 'E' || str[i] != 'W')
+		if (str[i] != ' ' && str[i] != '0' && str[i] != '1' && str[i] != 'N' && str[i] != 'S' && str[i] != 'E' && str[i] != 'W' && str[i] != '\n')
 			return (0);
 		i++;
 	}
 	return (1);
+}
+
+char	**fill_map(char	**map)
+{
+	int		i;
+	int		j;
+	size_t	max;
+	char	*tmp;
+
+	i = 0;
+	max = 0;
+	while (map[i])
+	{
+		if (map[i][ft_strlen(map[i]) - 1] == '\n')
+			map[i][ft_strlen(map[i]) - 1] = '\0';
+		if (ft_strlen(map[i]) > max)
+			max = ft_strlen(map[i]);
+		i++;
+	}
+	i = 0;
+	while (map[i])
+	{
+		tmp = ft_strdup(map[i]);
+		free(map[i]);
+		if (!tmp)
+			return (NULL);
+		map[i] = malloc(sizeof(char) * (max + 1));
+		ft_memset(map[i], ' ', max);
+		map[i][max] = '\0';
+		j = 0;
+		while (tmp[j])
+		{
+			map[i][j] = tmp[j];
+			j++;
+		}
+		free(tmp);
+		i++;
+	}
+	return (map);
 }
 
 int	map_parsing(int fd, t_pars *pars)
@@ -193,11 +311,11 @@ int	map_parsing(int fd, t_pars *pars)
 	char *str;
 	int ret_valid;
 
-	while (!map_valid(pars))
+	while (1)
 	{
 		str = get_next_line(fd);
 		if (!str)
-			return (0);
+			break ;
 		if (!str_is_empty(str))
 		{
 			ret_valid = str_is_valid_map(str);
@@ -206,10 +324,13 @@ int	map_parsing(int fd, t_pars *pars)
 				free(str);
 				return (ret_valid);
 			}
-			realloc_tab(pars->map, str);
+			pars->map = realloc_tab(pars->map, str);
+			if (!pars->map)
+				return (2);
 		}
 		free(str);
 	}
+	pars->map = fill_map(pars->map);
 	return (1);
 }
 
@@ -310,6 +431,18 @@ int	is_arg_valid(int argc, char **argv)
 	return (1);
 }
 
+void	print_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_pars pars_struct;
@@ -321,6 +454,11 @@ int	main(int argc, char **argv)
 	{
 		return (1);
 	}
-
+	if (is_map_valid(pars_struct.map) == 0)
+	{
+		error("Error\nLa map n'est pas valide\n");
+		return (1);
+	}
+	print_map(pars_struct.map);
 	free_pars_struct(&pars_struct);
 }

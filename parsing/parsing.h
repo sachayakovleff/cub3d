@@ -2,6 +2,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct	s_pars {
 	char	*n_texture;
@@ -17,3 +18,6 @@ char	*get_next_line(int fd);
 char	**ft_split(char const *s, char c);
 int		ft_atoi(const char *nptr);
 char	*ft_strdup(const char *s);
+size_t	ft_strlen(const char *s);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	*ft_memset(void *s, int c, size_t n);
