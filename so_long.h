@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:57:07 by syakovle          #+#    #+#             */
-/*   Updated: 2023/09/28 14:08:49 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/28 23:55:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,28 @@ typedef struct s_player
 	bool	d;
 }				t_player;
 
-typedef struct	s_data {
+typedef struct	s_data
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 }				t_data;
+
+typedef struct	s_rays
+{
+	int 	ray;
+	int 	mx;
+	int 	my;
+	int		mp;
+	int 	dof;
+	float	ray_x;
+	float	ray_y;
+	float	ray_angle;
+	float	xo;
+	float	yo;
+}				t_rays;
 
 typedef struct s_mlx
 {
@@ -54,6 +69,7 @@ typedef struct s_mlx
 	t_data		img_ground;
 	t_data		img_player;
 	t_player	player;
+	t_rays		rays;
 }				t_mlx;
 
 #endif

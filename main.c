@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:07:23 by syakovle          #+#    #+#             */
-/*   Updated: 2023/09/28 14:44:30 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/29 00:36:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_setmove(t_mlx *mlx)
 		mlx->player.delta_x = cos(mlx->player.angle);
 		mlx->player.delta_y = sin(mlx->player.angle);
 	}
-	printf("angle: %f\n delta_x : %f\n delta_y : %f\n", mlx->player.angle, mlx->player.delta_x, mlx->player.delta_y);
 }
 
 int	handlekey(int key, t_mlx *mlx)
@@ -113,7 +112,8 @@ int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, 
 	double pixelY = beginY;
 	while (pixels)
 	{
-    	mlx_pixel_put(mlx, win, pixelX, pixelY, color);
+		if (pixelX < mapx * pixelsize && pixelY < mapy * pixelsize)
+    		mlx_pixel_put(mlx, win, pixelX, pixelY, color);
     	pixelX += deltaX;
     	pixelY += deltaY;
     	--pixels;
@@ -162,10 +162,61 @@ int	ft_display_map(t_mlx *mlx)
 	return (0);
 }
 
+void	ft_draw_rays(t_mlx *mlx)
+{
+	mlx->rays.ray_angle = mlx->player.angle;
+	mlx->rays.ray = 0;
+	while (mlx->rays.ray < 1)
+	{
+		mlx->rays.dof = 0;
+		float aTan = -1 / tan(mlx->rays.ray_angle);
+		if (mlx->rays.ray_angle > PI)
+		{
+			mlx->rays.ray_y = (((int)mlx->player.pos_y >> 6) << 6) - 0.0001;
+			mlx->rays.ray_x = (mlx->player.pos_y - mlx->rays.ray_y) * aTan + mlx->player.pos_x;
+			mlx->rays.yo = -64;
+			mlx->rays.xo = -(mlx->rays.yo * aTan); 
+		}
+		if (mlx->rays.ray_angle < PI)
+		{
+			mlx->rays.ray_y = (((int)mlx->player.pos_y >> 6) << 6) + 64;
+			mlx->rays.ray_x = (mlx->player.pos_y - mlx->rays.ray_y) * aTan + mlx->player.pos_x;
+			mlx->rays.yo = 64;
+			mlx->rays.xo = -(mlx->rays.yo * aTan); 
+		}
+		if (mlx->rays.ray_angle == 0 || mlx->rays.ray_angle == PI)
+		{
+			mlx->rays.ray_x = mlx->player.pos_x;
+			mlx->rays.ray_y = mlx->player.pos_y;
+			mlx->rays.dof = 8;
+		}
+		while (mlx->rays.dof < 8)
+		{
+			mlx->rays.mx = (int) (mlx->rays.ray_x) >> 6;
+			mlx->rays.my = (int) (mlx->rays.ray_y) >> 6;
+			mlx->rays.mp = mlx->rays.my * mapx + mlx->rays.mx;
+			printf("mp: %d\n", mlx->rays.mp);
+			if (mlx->rays.mp < mapx * mapy && map[mlx->rays.mp] == 1)
+			{
+				mlx->rays.dof = 8;
+			}
+			else
+			{
+				mlx->rays.ray_x += mlx->rays.xo;
+				mlx->rays.ray_y += mlx->rays.yo;
+				mlx->rays.dof += 1;
+			}
+		}
+		draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x, mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0x00FF0000);
+		mlx->rays.ray++;
+	}
+}
+
 int	handleloop(t_mlx *mlx)
 {
 	ft_display_map(mlx);
 	ft_display_player(mlx);
+	ft_draw_rays(mlx);
 	ft_setmove(mlx);
 	return (0);
 }
@@ -225,7 +276,7 @@ void init(t_mlx *mlx)
 	mlx->win_x = 1080;
 	mlx->win_y = 1080;
 	mlx->mlx_ptr = mlx_init();
-	mlx->player.delta_x = 0;
+	mlx->player.delta_x = 1;
 	mlx->player.delta_y = 0;
 	mlx->player.angle = 0;
 	initimages(mlx);
