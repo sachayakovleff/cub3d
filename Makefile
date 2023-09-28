@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/09/20 23:30:25 by marvin           ###   ########.fr        #
+#    Updated: 2023/09/28 13:41:51 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ $(NAME): $(OBJS)
 	@make all -C printf
 	@make all -C getnextline
 	@make all -C minilibx-linux
-	$(CC) -g3 $(CFLAGS) $(NAME) minilibx-linux/libmlx.a -lX11 -lXext $(GNL) $(PRINTF) $(LIBFT) -o so_long
+	$(CC) -g3 $(CFLAGS) $(NAME) minilibx-linux/libmlx.a -lm -lX11 -lXext $(GNL) $(PRINTF) $(LIBFT) -o so_long
 
 all: $(NAME)
 

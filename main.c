@@ -6,15 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:07:23 by syakovle          #+#    #+#             */
-/*   Updated: 2023/09/23 20:25:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/28 14:44:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
 #include <X11/Xlib.h>
-#include <math.h>
-#define PI 3.1415926535
+
 
 
 int mapx = 8;
@@ -45,20 +44,31 @@ void	ft_setmove(t_mlx *mlx)
 {
 	if (mlx->player.z == true)
 	{
-		mlx->player.pos_y -= 1;
+		mlx->player.pos_x += mlx->player.delta_x;
+		mlx->player.pos_y += mlx->player.delta_y;
 	}
 	if (mlx->player.q == true)
 	{
-		mlx->player.pos_x -= 1;
+		mlx->player.angle -= 0.005;
+		if (mlx->player.angle < 0)
+			mlx->player.angle += 2 * PI;
+		mlx->player.delta_x = cos(mlx->player.angle);
+		mlx->player.delta_y = sin(mlx->player.angle);
 	}
 	if (mlx->player.s == true)
 	{
-		mlx->player.pos_y += 1;
+		mlx->player.pos_x -= mlx->player.delta_x;
+		mlx->player.pos_y -= mlx->player.delta_y;
 	}
 	if (mlx->player.d == true)
 	{
-		mlx->player.pos_x += 1;
+		mlx->player.angle += 0.005;
+		if (mlx->player.angle > 2 * PI )
+			mlx->player.angle -= 2 * PI;
+		mlx->player.delta_x = cos(mlx->player.angle);
+		mlx->player.delta_y = sin(mlx->player.angle);
 	}
+	printf("angle: %f\n delta_x : %f\n delta_y : %f\n", mlx->player.angle, mlx->player.delta_x, mlx->player.delta_y);
 }
 
 int	handlekey(int key, t_mlx *mlx)
@@ -92,10 +102,30 @@ int handlekeyrelease(int key, t_mlx *mlx)
 	return (0);
 }
 
+int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color)
+{
+	double deltaX = endX - beginX;
+	double deltaY = endY - beginY;
+	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	deltaX /= pixels;
+	deltaY /= pixels;
+	double pixelX = beginX;
+	double pixelY = beginY;
+	while (pixels)
+	{
+    	mlx_pixel_put(mlx, win, pixelX, pixelY, color);
+    	pixelX += deltaX;
+    	pixelY += deltaY;
+    	--pixels;
+	}
+	return (0);
+}
+
 int ft_display_player(t_mlx *mlx)
 {
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_player.img, mlx->player.pos_x, mlx->player.pos_y);
 
+	draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x, mlx->player.pos_y, mlx->player.pos_x + mlx->player.delta_x * 20, mlx->player.pos_y + mlx->player.delta_y * 20, 0x00FF0000);
 	return (0);
 }
 
@@ -134,7 +164,6 @@ int	ft_display_map(t_mlx *mlx)
 
 int	handleloop(t_mlx *mlx)
 {
-	ft_display_ground(mlx);
 	ft_display_map(mlx);
 	ft_display_player(mlx);
 	ft_setmove(mlx);
@@ -183,7 +212,6 @@ void initimages(t_mlx *mlx)
 	mlx->img_player.addr = mlx_get_data_addr(mlx->img_player.img, &mlx->img_player.bits_per_pixel, &mlx->img_player.line_length,
 								&mlx->img_player.endian);
 	editimage(&mlx->img_player, 16, 16, 0xFF000000);
-	
 }
 
 void init(t_mlx *mlx)
@@ -197,6 +225,9 @@ void init(t_mlx *mlx)
 	mlx->win_x = 1080;
 	mlx->win_y = 1080;
 	mlx->mlx_ptr = mlx_init();
+	mlx->player.delta_x = 0;
+	mlx->player.delta_y = 0;
+	mlx->player.angle = 0;
 	initimages(mlx);
 }
 
@@ -212,6 +243,7 @@ int	main(int ac, char **av)
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_close, &mlx);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, handlekey, &mlx);
 	mlx_hook(mlx.win_ptr, KeyRelease, KeyReleaseMask, handlekeyrelease, &mlx);
+	ft_display_ground(&mlx);
 	mlx_loop_hook(mlx.mlx_ptr, handleloop, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

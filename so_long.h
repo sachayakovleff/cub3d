@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:57:07 by syakovle          #+#    #+#             */
-/*   Updated: 2023/09/23 20:25:52 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/28 14:08:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# define PI 3.1415926535
+# include <math.h>
 
 typedef struct s_player
 {
@@ -26,6 +28,7 @@ typedef struct s_player
 	float	pos_x;
 	float	delta_x;
 	float	delta_y;
+	float	angle;
 	bool	z;
 	bool	q;
 	bool	s;
