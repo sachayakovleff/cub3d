@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:07:23 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/01 19:30:12 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/01 19:42:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	ft_setmove(t_mlx *mlx)
 {
 	if (mlx->player.z == true)
 	{
-		mlx->player.pos_x += mlx->player.delta_x;
-		mlx->player.pos_y += mlx->player.delta_y;
+		mlx->player.pos_x += mlx->player.delta_x / 8;
+		mlx->player.pos_y += mlx->player.delta_y / 8;
 	}
 	if (mlx->player.q == true)
 	{
-		mlx->player.angle -= 0.005;
+		mlx->player.angle -= 0.001;
 		if (mlx->player.angle < 0)
 			mlx->player.angle += 2 * PI;
 		mlx->player.delta_x = cos(mlx->player.angle);
@@ -57,12 +57,12 @@ void	ft_setmove(t_mlx *mlx)
 	}
 	if (mlx->player.s == true)
 	{
-		mlx->player.pos_x -= mlx->player.delta_x;
-		mlx->player.pos_y -= mlx->player.delta_y;
+		mlx->player.pos_x -= mlx->player.delta_x / 8;
+		mlx->player.pos_y -= mlx->player.delta_y / 8;
 	}
 	if (mlx->player.d == true)
 	{
-		mlx->player.angle += 0.005;
+		mlx->player.angle += 0.001;
 		if (mlx->player.angle > 2 * PI )
 			mlx->player.angle -= 2 * PI;
 		mlx->player.delta_x = cos(mlx->player.angle);
@@ -141,7 +141,9 @@ int	ft_display_map(t_mlx *mlx)
 {
 	int x = 0;
 	int y = 0;
-
+	static int i = 0;
+	if (i % 50 != 0)
+		return (i++, 0);
 	while (y < mapy)
 	{
 		while (x < mapx)
@@ -159,8 +161,7 @@ int	ft_display_map(t_mlx *mlx)
 		x = 0;
 		y++;
 	}
-
-
+	i++;
 	return (0);
 }
 
@@ -264,9 +265,9 @@ void	ft_draw_rays(t_mlx *mlx)
 {
 	mlx->rays.ray_angle = mlx->player.angle;
 	mlx->rays.ray = 0;
-	while (mlx->rays.ray < 1)
+	mlx->rays.ray_angle = mlx->player.angle - (DR * 30);
+	while (mlx->rays.ray < 60)
 	{
-		mlx->rays.ray_angle = mlx->player.angle - (DR * 30);
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * PI;
 		if (mlx->rays.ray_angle > 2 * PI)
@@ -281,9 +282,7 @@ void	ft_draw_rays(t_mlx *mlx)
 		ft_cast_horizontal(mlx);
 		mlx->rays.hx = mlx->rays.ray_x;
 		mlx->rays.hy = mlx->rays.ray_y;
-		mlx->rays.distH = dist(mlx->player.pos_x, mlx->player.pos_y, mlx->rays.hx, mlx->rays.hy);
-
-		printf("=\nhx hy distH: %f %f %f\nvx vy distV%f %f %f\n=\n", mlx->rays.hx, mlx->rays.hy, mlx->rays.distH, mlx->rays.vx, mlx->rays.vy, mlx->rays.distV);
+		mlx->rays.distH = dist(mlx->player.pos_x, mlx->player.pos_y, mlx->rays.hx, mlx->rays.hy);	
 		if (mlx->rays.distH > mlx->rays.distV)
 		{
 			mlx->rays.ray_x = mlx->rays.vx;
@@ -296,6 +295,11 @@ void	ft_draw_rays(t_mlx *mlx)
 		}
 		draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x, mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
 		mlx->rays.ray++;
+		mlx->rays.ray_angle += DR;
+		if (mlx->rays.ray_angle < 0)
+			mlx->rays.ray_angle += 2 * PI;
+		if (mlx->rays.ray_angle > 2 * PI)
+			mlx->rays.ray_angle -= 2 * PI;
 	}
 }
 
@@ -349,7 +353,7 @@ void initimages(t_mlx *mlx)
 	mlx->img_player.img = mlx_new_image(mlx->mlx_ptr, 16, 16);
 	mlx->img_player.addr = mlx_get_data_addr(mlx->img_player.img, &mlx->img_player.bits_per_pixel, &mlx->img_player.line_length,
 								&mlx->img_player.endian);
-	editimage(&mlx->img_player, 16, 16, 0xFF000000);
+	editimage(&mlx->img_player, 8, 8, 0xFF000000);
 }
 
 void init(t_mlx *mlx)
