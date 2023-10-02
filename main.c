@@ -5,16 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 15:07:23 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/01 19:42:09 by marvin           ###   ########.fr       */
+/*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
+/*   Updated: 2023/10/02 18:07:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <stdio.h>
-#include <X11/Xlib.h>
-
-
+#include "cub3d.h"
 
 int mapx = 8;
 int mapy = 8;
@@ -31,75 +27,6 @@ int map[] =
 	1, 0, 0, 0, 0, 0, 0, 1,
 	1, 1, 1, 1, 1, 1, 1, 1,
 };
-
-
-int	ft_close(t_mlx *mlx)
-{
-	ft_printf("closed \n");
-	mlx_loop_end(mlx->mlx_ptr);
-	return (0);
-}
-
-void	ft_setmove(t_mlx *mlx)
-{
-	if (mlx->player.z == true)
-	{
-		mlx->player.pos_x += mlx->player.delta_x / 8;
-		mlx->player.pos_y += mlx->player.delta_y / 8;
-	}
-	if (mlx->player.q == true)
-	{
-		mlx->player.angle -= 0.001;
-		if (mlx->player.angle < 0)
-			mlx->player.angle += 2 * PI;
-		mlx->player.delta_x = cos(mlx->player.angle);
-		mlx->player.delta_y = sin(mlx->player.angle);
-	}
-	if (mlx->player.s == true)
-	{
-		mlx->player.pos_x -= mlx->player.delta_x / 8;
-		mlx->player.pos_y -= mlx->player.delta_y / 8;
-	}
-	if (mlx->player.d == true)
-	{
-		mlx->player.angle += 0.001;
-		if (mlx->player.angle > 2 * PI )
-			mlx->player.angle -= 2 * PI;
-		mlx->player.delta_x = cos(mlx->player.angle);
-		mlx->player.delta_y = sin(mlx->player.angle);
-	}
-}
-
-int	handlekey(int key, t_mlx *mlx)
-{
-	if (key == 122)
-		mlx->player.z = true;
-	if (key == 113)
-		mlx->player.q = true;
-	if (key == 115)
-		mlx->player.s = true;
-	if (key == 100)
-		mlx->player.d = true;
-	if (key == 65307)
-	{
-		mlx_loop_end(mlx->mlx_ptr);
-		return (0);
-	}
-	return (0);
-}
-
-int handlekeyrelease(int key, t_mlx *mlx)
-{
-	if (key == 122)
-		mlx->player.z = false;
-	if (key == 113)
-		mlx->player.q = false;
-	if (key == 115)
-		mlx->player.s = false;
-	if (key == 100)
-		mlx->player.d = false;
-	return (0);
-}
 
 int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color)
 {
@@ -120,20 +47,6 @@ int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, 
     	pixelY += deltaY;
     	--pixels;
 	}
-	return (0);
-}
-
-int ft_display_player(t_mlx *mlx)
-{
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_player.img, mlx->player.pos_x, mlx->player.pos_y);
-
-	draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x, mlx->player.pos_y, mlx->player.pos_x + mlx->player.delta_x * 20, mlx->player.pos_y + mlx->player.delta_y * 20, 0x00FF0000);
-	return (0);
-}
-
-int ft_display_ground(t_mlx *mlx)
-{
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_font.img, 0, 0);
 	return (0);
 }
 
@@ -201,7 +114,7 @@ void	ft_cast_horizontal(t_mlx *mlx)
 		if (mlx->rays.mx >= 500)
 			mlx->rays.mx = 500;
 		mlx->rays.mp = mlx->rays.my * mapx + mlx->rays.mx;			
-		if (mlx->rays.mp > 0 && mlx->rays.mp < mapx * mapy && map[mlx->rays.mp] == 1)
+		if (mlx->rays.mp >= 0 && mlx->rays.mp < mapx * mapy && map[mlx->rays.mp] == 1)
 		{
 			mlx->rays.hx = mlx->rays.ray_x;
 			mlx->rays.hy = mlx->rays.ray_y;
@@ -248,7 +161,7 @@ void	ft_cast_vertical(t_mlx *mlx)
 		if (mlx->rays.mx >= 500)
 			mlx->rays.mx = 500;
 		mlx->rays.mp = mlx->rays.my * mapx + mlx->rays.mx;			
-		if (mlx->rays.mp > 0 && mlx->rays.mp < mapx * mapy && map[mlx->rays.mp] == 1)
+		if (mlx->rays.mp >= 0 && mlx->rays.mp < mapx * mapy && map[mlx->rays.mp] == 1)
 		{
 			mlx->rays.dof = 8;
 		}
@@ -303,15 +216,6 @@ void	ft_draw_rays(t_mlx *mlx)
 	}
 }
 
-int	handleloop(t_mlx *mlx)
-{
-	ft_display_map(mlx);
-	ft_display_player(mlx);
-	ft_draw_rays(mlx);
-	ft_setmove(mlx);
-	return (0);
-}
-
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -335,42 +239,6 @@ void editimage(t_data *data, int size_x, int size_y, int color)
         win_x = 0;
         win_y++;
     }
-}
-
-void initimages(t_mlx *mlx)
-{
-	mlx->img_font.img = mlx_new_image(mlx->mlx_ptr, 1920, 1080);
-	mlx->img_font.addr = mlx_get_data_addr(mlx->img_font.img, &mlx->img_font.bits_per_pixel, &mlx->img_font.line_length,
-								&mlx->img_font.endian);
-	mlx->img_ground.img = mlx_new_image(mlx->mlx_ptr, 62, 62);
-	mlx->img_ground.addr = mlx_get_data_addr(mlx->img_ground.img, &mlx->img_ground.bits_per_pixel, &mlx->img_ground.line_length,
-								&mlx->img_ground.endian);
-	editimage(&mlx->img_ground, 62, 62, 0x000000FF);
-	mlx->img_wall.img = mlx_new_image(mlx->mlx_ptr, 62, 62);
-	mlx->img_wall.addr = mlx_get_data_addr(mlx->img_wall.img, &mlx->img_wall.bits_per_pixel, &mlx->img_wall.line_length,
-								&mlx->img_wall.endian);
-	editimage(&mlx->img_wall, 62, 62, 0x0000FF00);
-	mlx->img_player.img = mlx_new_image(mlx->mlx_ptr, 16, 16);
-	mlx->img_player.addr = mlx_get_data_addr(mlx->img_player.img, &mlx->img_player.bits_per_pixel, &mlx->img_player.line_length,
-								&mlx->img_player.endian);
-	editimage(&mlx->img_player, 8, 8, 0xFF000000);
-}
-
-void init(t_mlx *mlx)
-{
-	mlx->player.pos_x = 50;
-	mlx->player.pos_y = 50;
-	mlx->player.z = false;
-	mlx->player.q = false;
-	mlx->player.s = false;
-	mlx->player.d = false;
-	mlx->win_x = 1080;
-	mlx->win_y = 1080;
-	mlx->mlx_ptr = mlx_init();
-	mlx->player.delta_x = 1;
-	mlx->player.delta_y = 0;
-	mlx->player.angle = 0;
-	initimages(mlx);
 }
 
 int	main(int ac, char **av)

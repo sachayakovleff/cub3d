@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/09/28 13:41:51 by marvin           ###   ########.fr        #
+#    Updated: 2023/10/02 18:05:48 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,10 @@ PRINTF = printf/ft_printf.a
 GNL = getnextline/getnextline.a
 MINILIBX = minilibx-linux/libmlx.a
 
-FILES	=	main
+FILES	=	main	\
+			init	\
+			keys	\
+			display
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
@@ -39,7 +42,7 @@ $(NAME): $(OBJS)
 	@make all -C printf
 	@make all -C getnextline
 	@make all -C minilibx-linux
-	$(CC) -g3 $(CFLAGS) $(NAME) minilibx-linux/libmlx.a -lm -lX11 -lXext $(GNL) $(PRINTF) $(LIBFT) -o so_long
+	$(CC) -g3 $(CFLAGS) $(NAME) minilibx-linux/libmlx.a -lm -lX11 -lXext $(GNL) $(PRINTF) $(LIBFT) -o cub3d
 
 all: $(NAME)
 
