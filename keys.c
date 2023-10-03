@@ -23,7 +23,7 @@ void	handle_angle(t_mlx *mlx)
 {
 	if (mlx->player.q == true)
 	{
-		mlx->player.angle -= 0.001;
+		mlx->player.angle -= 0.005;
 		if (mlx->player.angle < 0)
 			mlx->player.angle += 2 * PI;
 		mlx->player.delta_x = cos(mlx->player.angle);
@@ -31,7 +31,7 @@ void	handle_angle(t_mlx *mlx)
 	}
 	if (mlx->player.d == true)
 	{
-		mlx->player.angle += 0.001;
+		mlx->player.angle += 0.005;
 		if (mlx->player.angle > 2 * PI)
 			mlx->player.angle -= 2 * PI;
 		mlx->player.delta_x = cos(mlx->player.angle);
@@ -43,13 +43,13 @@ void	ft_setmove(t_mlx *mlx)
 {
 	if (mlx->player.z == true)
 	{
-		mlx->player.pos_x += mlx->player.delta_x / 8;
-		mlx->player.pos_y += mlx->player.delta_y / 8;
+		mlx->player.pos_x += mlx->player.delta_x / 2;
+		mlx->player.pos_y += mlx->player.delta_y / 2;
 	}
 	if (mlx->player.s == true)
 	{
-		mlx->player.pos_x -= mlx->player.delta_x / 8;
-		mlx->player.pos_y -= mlx->player.delta_y / 8;
+		mlx->player.pos_x -= mlx->player.delta_x / 2;
+		mlx->player.pos_y -= mlx->player.delta_y / 2;
 	}
 	handle_angle(mlx);
 }

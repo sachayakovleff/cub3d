@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/03 02:32:40 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/03 17:53:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, 
 		--pixels;
 	}
 	return (0);
+}
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
 int	ft_display_map(t_mlx *mlx, int x, int y)
@@ -94,12 +102,65 @@ void	get_ray_collision(t_mlx *mlx)
 	{
 		mlx->rays.ray_x = mlx->rays.vx;
 		mlx->rays.ray_y = mlx->rays.vy;
+		mlx->render3d.distance = mlx->rays.distV
+			* cos(mlx->rays.ray_angle - mlx->player.angle);
 	}
-	if (mlx->rays.distH < mlx->rays.distH)
+	if (mlx->rays.distH < mlx->rays.distV)
 	{
 		mlx->rays.ray_x = mlx->rays.hx;
 		mlx->rays.ray_y = mlx->rays.hy;
+		mlx->render3d.distance = mlx->rays.distH
+			* cos(mlx->rays.ray_angle - mlx->player.angle);
 	}
+}
+
+void	set_pixels_by_line(t_mlx *mlx)
+{
+	int	y;
+
+	y = mlx->render3d.wall_top_pixel;
+	while (++y <= mlx->win_y)
+		my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray, y, 0xFF000000);
+	y = mlx->render3d.wall_top_pixel;
+	while (++y <= mlx->render3d.wall_bottom_pixel)
+	{
+		if (mlx->rays.distH < mlx->rays.distV)
+		{
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 1, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 2, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 3, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 4, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 5, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 6, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 7, y, 0x00FF0000);
+		}
+		else
+		{
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 1, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 2, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 3, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 4, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 5, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 6, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 7, y, 0x0000FF00);
+		}
+	}
+}
+
+void	edit_3d_image(t_mlx *mlx)
+{
+	mlx->render3d.projected_wall_h = (64 / mlx->render3d.distance)
+		* ((mlx->win_x / 2) / tan((120 * (PI / 180)) / 2));
+	mlx->render3d.wall_strip_h = (int)mlx->render3d.projected_wall_h;
+	mlx->render3d.wall_top_pixel = (mlx->win_y / 2) - (mlx->render3d.wall_strip_h / 2);
+	if (mlx->render3d.wall_top_pixel < 0)
+		mlx->render3d.wall_top_pixel = 0;
+	mlx->render3d.wall_bottom_pixel = (mlx->win_y / 2) + (mlx->render3d.wall_strip_h / 2);
+	if (mlx->render3d.wall_bottom_pixel > mlx->win_x)
+		mlx->render3d.wall_bottom_pixel = mlx->win_y;
+	set_pixels_by_line(mlx);
 }
 
 void	ft_draw_rays(t_mlx *mlx)
@@ -113,23 +174,16 @@ void	ft_draw_rays(t_mlx *mlx)
 		ft_cast_vertical(mlx);
 		ft_cast_horizontal(mlx);
 		get_ray_collision(mlx);
-		draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x,
-			mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
+		//draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x,
+		//	mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
+		edit_3d_image(mlx);
 		mlx->rays.ray++;
-		mlx->rays.ray_angle += DR;
+		mlx->rays.ray_angle += (DR);
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * PI;
 		if (mlx->rays.ray_angle > 2 * PI)
 			mlx->rays.ray_angle -= 2 * PI;
 	}
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
 }
 
 void	editimage(t_data *data, int size_x, int size_y, int color)

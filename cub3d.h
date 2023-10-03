@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/03 02:24:57 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/03 16:26:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,29 @@ typedef struct	s_rays
 	float	vy;
 }				t_rays;
 
+typedef struct s_render_3d
+{
+	float	distance;
+	float	projected_wall_h;
+	int		wall_strip_h;
+	int		wall_top_pixel;
+	int		wall_bottom_pixel;
+}				t_render_3d;
+
 typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int 		win_x;
 	int 		win_y;
+	t_data		img_3d;
 	t_data		img_font;
 	t_data		img_wall;
 	t_data		img_ground;
 	t_data		img_player;
 	t_player	player;
 	t_rays		rays;
+	t_render_3d	render3d;		
 }				t_mlx;
 
 void 	initimages(t_mlx *mlx);
