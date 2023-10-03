@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/03 17:53:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/03 21:21:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,6 @@ void	set_pixels_by_line(t_mlx *mlx)
 	int	y;
 
 	y = mlx->render3d.wall_top_pixel;
-	while (++y <= mlx->win_y)
-		my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray, y, 0xFF000000);
-	y = mlx->render3d.wall_top_pixel;
 	while (++y <= mlx->render3d.wall_bottom_pixel)
 	{
 		if (mlx->rays.distH < mlx->rays.distV)
@@ -174,8 +171,8 @@ void	ft_draw_rays(t_mlx *mlx)
 		ft_cast_vertical(mlx);
 		ft_cast_horizontal(mlx);
 		get_ray_collision(mlx);
-		//draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x,
-		//	mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
+		draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x,
+			mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
 		mlx->rays.ray_angle += (DR);

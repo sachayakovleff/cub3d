@@ -31,13 +31,13 @@ int	ft_display_ground(t_mlx *mlx)
 
 int	handleloop(t_mlx *mlx)
 {
-	//ft_display_map(mlx, 0, 0);
-	//ft_display_player(mlx);
-	mlx->img_3d.img = mlx_new_image(mlx->mlx_ptr, 480, mlx->win_y);
+	ft_display_map(mlx, 0, 0);
+	ft_display_player(mlx);
+	mlx->img_3d.img = mlx_new_image(mlx->mlx_ptr, 600, mlx->win_y);
 	mlx->img_3d.addr = mlx_get_data_addr(mlx->img_3d.img, &(mlx->img_3d.bits_per_pixel),
 		&(mlx->img_3d.line_length), &mlx->img_3d.endian);
 	ft_draw_rays(mlx);
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_3d.img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_3d.img, 500	, 0);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->img_3d.img);
 	ft_setmove(mlx);
 	return (0);
