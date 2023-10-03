@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/02 17:46:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/03 02:24:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,14 @@ int 	handlekeyrelease(int key, t_mlx *mlx);
 void 	editimage(t_data *data, int size_x, int size_y, int color);
 int 	ft_display_player(t_mlx *mlx);
 int 	ft_display_ground(t_mlx *mlx);
-int		ft_display_map(t_mlx *mlx);
+int		ft_display_map(t_mlx *mlx, int x, int y);
 int		handleloop(t_mlx *mlx);
 int 	draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color);
 void	ft_draw_rays(t_mlx *mlx);
+void	ft_get_hray_length(t_mlx *mlx);
+void	init_hrays_values(t_mlx *mlx);
+void	ft_cast_horizontal(t_mlx *mlx);
+float 	dist(float ax, float ay, float bx, float by);
+void	ft_cast_vertical(t_mlx *mlx);
+
 #endif

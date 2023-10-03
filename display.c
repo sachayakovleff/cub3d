@@ -31,7 +31,7 @@ int	ft_display_ground(t_mlx *mlx)
 
 int	handleloop(t_mlx *mlx)
 {
-	ft_display_map(mlx);
+	ft_display_map(mlx, 0, 0);
 	ft_display_player(mlx);
 	ft_draw_rays(mlx);
 	ft_setmove(mlx);

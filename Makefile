@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/10/02 18:05:48 by marvin           ###   ########.fr        #
+#    Updated: 2023/10/03 02:11:21 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,12 @@ PRINTF = printf/ft_printf.a
 GNL = getnextline/getnextline.a
 MINILIBX = minilibx-linux/libmlx.a
 
-FILES	=	main	\
-			init	\
-			keys	\
-			display
+FILES	=	main			\
+			init			\
+			keys			\
+			display			\
+			cast_horizontal	\
+			cast_vertical
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
