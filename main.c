@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/03 21:21:17 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/04 17:21:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,25 +123,25 @@ void	set_pixels_by_line(t_mlx *mlx)
 	{
 		if (mlx->rays.distH < mlx->rays.distV)
 		{
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 1, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 2, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 3, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 4, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 5, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 6, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 7, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, 0x00FF0000);
+			/*my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 2, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 3, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 4, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 5, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 6, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 7, y, 0x00FF0000);*/
 		}
 		else
 		{
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 1, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 2, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 3, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 4, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 5, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 6, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 8 + 7, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, 0x0000FF00);
+			/*my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 2, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 3, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 4, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 5, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 6, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 7, y, 0x0000FF00);*/
 		}
 	}
 }
@@ -165,17 +165,17 @@ void	ft_draw_rays(t_mlx *mlx)
 	mlx->rays.ray_angle = mlx->player.angle;
 	mlx->rays.ray = 0;
 	mlx->rays.ray_angle = mlx->player.angle - (DR * 30);
-	while (mlx->rays.ray < 60)
+	while (mlx->rays.ray < 480)
 	{
 		get_ray_angle(mlx);
 		ft_cast_vertical(mlx);
 		ft_cast_horizontal(mlx);
 		get_ray_collision(mlx);
-		draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x,
-			mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
+		//draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x,
+		//	mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
-		mlx->rays.ray_angle += (DR);
+		mlx->rays.ray_angle += (DR / 8);
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * PI;
 		if (mlx->rays.ray_angle > 2 * PI)
