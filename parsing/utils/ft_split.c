@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontign <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:46:45 by amontign          #+#    #+#             */
-/*   Updated: 2022/11/22 17:20:11 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:34:26 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../init_map.h"
 
 int	ft_count_words(char const *s, char c)
 {

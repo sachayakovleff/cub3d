@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 15:25:22 by syakovle          #+#    #+#             */
-/*   Updated: 2022/11/07 15:28:28 by syakovle         ###   ########.fr       */
+/*   Created: 2022/11/08 14:23:33 by amontign          #+#    #+#             */
+/*   Updated: 2023/10/06 12:34:27 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tolower(int c)
+#include "../init_map.h"
+
+void	*ft_memset(void *s, int c, size_t n)
 {
-	if (c >= 'A' && c <= 'Z')
+	unsigned int	i;
+
+	i = 0;
+	while (i < n)
 	{
-		c += 32;
+		*((unsigned char *)s + i) = c;
+		i++;
 	}
-	return (c);
+	return (s);
 }
