@@ -32,8 +32,8 @@ void	initimages(t_mlx *mlx)
 
 void	init(t_mlx *mlx)
 {
-	mlx->player.pos_x = 100;
-	mlx->player.pos_y = 100;
+	mlx->player.pos_x = 290;
+	mlx->player.pos_y = 500;
 	mlx->player.z = false;
 	mlx->player.q = false;
 	mlx->player.s = false;

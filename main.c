@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/12 19:31:56 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/13 00:33:11 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_display_map(t_mlx *mlx, int x, int y)
 
 	if (i % 50 != 0)
 		return (i++, 0);
-	while (y < mlx->pars.map_h)
+	while (y < mlx->pars.map_h + 1)
 	{
 		while (x < mlx->pars.map_w)
 		{
@@ -171,8 +171,8 @@ void	ft_draw_rays(t_mlx *mlx)
 		ft_cast_vertical(mlx);
 		ft_cast_horizontal(mlx);
 		get_ray_collision(mlx);
-		//draw_line(mlx, mlx->win_ptr, mlx->player.pos_x,
-		//	mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
+		draw_line(mlx, mlx->win_ptr, mlx->player.pos_x,
+			mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
 		mlx->rays.ray_angle += (DR / 8);
