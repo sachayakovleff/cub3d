@@ -6,13 +6,14 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:44:46 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/06 12:33:42 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:48:00 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_MAP_H
 # define INIT_MAP_H
 
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
@@ -27,10 +28,15 @@ typedef struct	s_pars {
 	int		f_colors[3];
 	int		c_colors[3];
 	char	**map;
+	char	*map2;
+	int		map_h;
+	int		map_w;
+	int		x_pos;
+	int		y_pos;
+	int		view; // 1 = nord | 2 = sud | 3 = est | 4 = ouest
 }				t_pars;
 
 char	*get_next_line(int fd);
-
 
 // init_map_utils.c
 void	error(char *str);
@@ -48,17 +54,14 @@ int		parsing(char **argv, t_pars *pars);
 int		map_parsing(int fd, t_pars *pars);
 
 // map_verif.c
-int		is_map_valid(char **map);
+int		is_map_valid(char **map, t_pars *pars);
 
 // parsing_fill_infos.c
 int		place_floor_ceiling(char *str, int (*colors)[3]);
 int		place_texture(char *str, char **texture);
 
 // LIBFT
-char	**ft_split(char const *s, char c);
-int		ft_atoi(const char *nptr);
 char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *s);
 void	*ft_memset(void *s, int c, size_t n);
 
 #endif

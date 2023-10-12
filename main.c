@@ -6,15 +6,15 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/12 16:32:25 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:31:56 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	mapx = 8;
-int	mapy = 8;
 int	pixelsize = 64;
+/*int	mapx = 8;
+int	mapy = 8;
 
 char	map[] = 
 {
@@ -26,9 +26,9 @@ char	map[] =
 	'1', '0', '0', '0', '0', '0', '0', '1',
 	'1', '0', '0', '0', '0', '0', '0', '1',
 	'1', '1', '1', '1', '1', '1', '1', '1',
-};
+};*/
 
-int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color)
+int draw_line(t_mlx *mlx, void *win, int beginX, int beginY, int endX, int endY, int color)
 {
 	double deltaX = endX - beginX;
 	double deltaY = endY - beginY;
@@ -41,8 +41,8 @@ int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, 
 		pixels = 5000;
 	while (pixels)
 	{
-		if (pixelX < mapx * pixelsize && pixelY < mapy * pixelsize)
-			mlx_pixel_put(mlx, win, pixelX, pixelY, color);
+		if (pixelX < mlx->pars.map_w * pixelsize && pixelY < mlx->pars.map_h * pixelsize)
+			mlx_pixel_put(mlx->mlx_ptr, win, pixelX, pixelY, color);
 		pixelX += deltaX;
 		pixelY += deltaY;
 		--pixels;
@@ -64,16 +64,16 @@ int	ft_display_map(t_mlx *mlx, int x, int y)
 
 	if (i % 50 != 0)
 		return (i++, 0);
-	while (y < mapy)
+	while (y < mlx->pars.map_h)
 	{
-		while (x < mapx)
+		while (x < mlx->pars.map_w)
 		{
-			if (map[y * mapx + x] == '1')
+			if (mlx->pars.map2[y * mlx->pars.map_w + x] == '1')
 			{
 				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 					mlx->img_wall.img, x * 64, y * 64);
 			}
-			else if (map[y * mapx + x] == '0')
+			else if (mlx->pars.map2[y * mlx->pars.map_w + x] == '0')
 			{
 				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 					mlx->img_ground.img, x * 64, y * 64);
@@ -171,7 +171,7 @@ void	ft_draw_rays(t_mlx *mlx)
 		ft_cast_vertical(mlx);
 		ft_cast_horizontal(mlx);
 		get_ray_collision(mlx);
-		//draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x,
+		//draw_line(mlx, mlx->win_ptr, mlx->player.pos_x,
 		//	mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
@@ -206,8 +206,11 @@ int	main(int ac, char **av)
 {
 	t_mlx	mlx;
 
-	(void) ac;
-	(void) av;
+	if (parsing_main(ac, av, &mlx))
+	{
+		free_pars_struct(&mlx.pars);
+		return (1);
+	}
 	init(&mlx);
 	editimage(&mlx.img_font, 1920, 1080, 0x00000000);
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.win_x, mlx.win_y, "cub3d");
@@ -217,4 +220,6 @@ int	main(int ac, char **av)
 	ft_display_ground(&mlx);
 	mlx_loop_hook(mlx.mlx_ptr, handleloop, &mlx);
 	mlx_loop(mlx.mlx_ptr);
+	free_pars_struct(&mlx.pars);
+	return (0);
 }

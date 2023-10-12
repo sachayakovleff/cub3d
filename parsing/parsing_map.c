@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:12:56 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/06 12:29:44 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:48:43 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**fill_map2(char **map, size_t max)
 char	**fill_map(char	**map)
 {
 	int		i;
-	size_t	max;
+	int	max;
 
 	i = 0;
 	max = 0;

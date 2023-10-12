@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/12 16:12:11 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:32:01 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "minilibx-linux/mlx.h"
 # include "printf/ft_printf.h"
 # include "libft/libft.h"
+# include "parsing/init_map.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -88,6 +89,7 @@ typedef struct s_mlx
 	void		*win_ptr;
 	int 		win_x;
 	int 		win_y;
+	t_pars		pars;
 	t_data		img_3d;
 	t_data		img_font;
 	t_data		img_wall;
@@ -95,7 +97,7 @@ typedef struct s_mlx
 	t_data		img_player;
 	t_player	player;
 	t_rays		rays;
-	t_render_3d	render3d;		
+	t_render_3d	render3d;
 }				t_mlx;
 
 void 	initimages(t_mlx *mlx);
@@ -109,12 +111,15 @@ int 	ft_display_player(t_mlx *mlx);
 int 	ft_display_ground(t_mlx *mlx);
 int		ft_display_map(t_mlx *mlx, int x, int y);
 int		handleloop(t_mlx *mlx);
-int 	draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color);
+int 	draw_line(t_mlx *mlx, void *win, int beginX, int beginY, int endX, int endY, int color);
 void	ft_draw_rays(t_mlx *mlx);
 void	ft_get_hray_length(t_mlx *mlx);
 void	init_hrays_values(t_mlx *mlx);
 void	ft_cast_horizontal(t_mlx *mlx);
 float 	dist(float ax, float ay, float bx, float by);
 void	ft_cast_vertical(t_mlx *mlx);
+
+int		parsing_main(int argc, char **argv, t_mlx *mlx);
+void	free_pars_struct(t_pars *pars);
 
 #endif

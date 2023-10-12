@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:18:18 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/06 12:29:58 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:39:39 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	map_minim(char **map)
 	return (1);
 }
 
-int	is_map_valid2(char **map)
+int	is_map_valid2(char **map, t_pars *pars)
 {
 	int	x;
 	int	y;
@@ -57,12 +57,14 @@ int	is_map_valid2(char **map)
 			}
 			x++;
 		}
+		pars->map_w = x;
 		y++;
 	}
+	pars->map_h = y;
 	return (1);
 }
 
-int	is_map_valid(char **map)
+int	is_map_valid(char **map, t_pars *pars)
 {
 	int	x;
 	int	y;
@@ -88,5 +90,5 @@ int	is_map_valid(char **map)
 			x++;
 		}
 	}
-	return (is_map_valid2(map));
+	return (is_map_valid2(map, pars));
 }

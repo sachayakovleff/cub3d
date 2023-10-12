@@ -16,7 +16,7 @@ int	ft_display_player(t_mlx *mlx)
 {
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_player.img,
 		mlx->player.pos_x, mlx->player.pos_y);
-	draw_line(mlx->mlx_ptr, mlx->win_ptr, mlx->player.pos_x, mlx->player.pos_y,
+	draw_line(mlx, mlx->win_ptr, mlx->player.pos_x, mlx->player.pos_y,
 		mlx->player.pos_x + mlx->player.delta_x * 20, mlx->player.pos_y
 		+ mlx->player.delta_y * 20, 0x00FF0000);
 	return (0);
@@ -31,8 +31,8 @@ int	ft_display_ground(t_mlx *mlx)
 
 int	handleloop(t_mlx *mlx)
 {
-	ft_display_map(mlx, 0, 0);
-	ft_display_player(mlx);
+	//ft_display_map(mlx, 0, 0);
+	//ft_display_player(mlx);
 	mlx->img_3d.img = mlx_new_image(mlx->mlx_ptr, 600, mlx->win_y);
 	mlx->img_3d.addr = mlx_get_data_addr(mlx->img_3d.img, &(mlx->img_3d.bits_per_pixel),
 		&(mlx->img_3d.line_length), &mlx->img_3d.endian);

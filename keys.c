@@ -49,19 +49,19 @@ void	ft_setmove(t_mlx *mlx)
 		delta_x_neg = -1;
 	if (mlx->player.delta_y < 0)
 		delta_y_neg = -1;
-
+//changer le 8 ici par posx et posy
 	if (mlx->player.z == true)
 	{
-		if (map[((int)floor((mlx->player.pos_x + mlx->player.delta_x / 2) / 64 + (0.2 * delta_x_neg)) + pos_y * 8)] != '1')
+		if (mlx->pars.map2[((int)floor((mlx->player.pos_x + mlx->player.delta_x / 2) / 64 + (0.2 * delta_x_neg)) + pos_y * 8)] != '1')
 			mlx->player.pos_x += mlx->player.delta_x / 2;
-		if (map[((int)floor((mlx->player.pos_y + mlx->player.delta_y / 2) / 64 + (0.2 * delta_y_neg)) * 8 + pos_x)] != '1')
+		if (mlx->pars.map2[((int)floor((mlx->player.pos_y + mlx->player.delta_y / 2) / 64 + (0.2 * delta_y_neg)) * 8 + pos_x)] != '1')
 			mlx->player.pos_y += mlx->player.delta_y / 2;
 	}
 	if (mlx->player.s == true)
 	{
-		if (map[((int)floor((mlx->player.pos_x - mlx->player.delta_x / 2) / 64 - (0.2 * delta_x_neg)) + pos_y * 8)] != '1')
+		if (mlx->pars.map2[((int)floor((mlx->player.pos_x - mlx->player.delta_x / 2) / 64 - (0.2 * delta_x_neg)) + pos_y * 8)] != '1')
 			mlx->player.pos_x -= mlx->player.delta_x / 2;
-		if (map[((int)floor((mlx->player.pos_y - mlx->player.delta_y / 2) / 64 - (0.2 * delta_y_neg)) * 8 + pos_x)] != '1')
+		if (mlx->pars.map2[((int)floor((mlx->player.pos_y - mlx->player.delta_y / 2) / 64 - (0.2 * delta_y_neg)) * 8 + pos_x)] != '1')
 			mlx->player.pos_y -= mlx->player.delta_y / 2;
 	}
 	handle_angle(mlx);

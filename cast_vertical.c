@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-extern int	mapx;
+/*extern int	mapx;
 extern int	mapy;
-extern char	map[];
+extern char	map[];*/
 
 void	init_vrays_value(t_mlx *mlx)
 {
@@ -51,9 +51,9 @@ void	ft_get_vray_length(t_mlx *mlx)
 	mlx->rays.my = (int)(mlx->rays.ray_y) >> 6;
 	if (mlx->rays.mx >= 500)
 		mlx->rays.mx = 500;
-	mlx->rays.mp = mlx->rays.my * mapx + mlx->rays.mx;
-	if (mlx->rays.mp >= 0 && mlx->rays.mp < mapx
-		* mapy && map[mlx->rays.mp] == '1')
+	mlx->rays.mp = mlx->rays.my * mlx->pars.map_w + mlx->rays.mx;
+	if (mlx->rays.mp >= 0 && mlx->rays.mp < mlx->pars.map_w
+		* mlx->pars.map_h && mlx->pars.map2[mlx->rays.mp] == '1')
 	{
 		mlx->rays.dof = 8;
 	}
