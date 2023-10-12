@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/06 16:09:28 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:14:13 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int	mapx = 8;
 int	mapy = 8;
 int	pixelsize = 64;
 
-int	map[] = 
+char	map[] = 
 {
-	1, 1, 1, 1, 1, 1, 1, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 1, 0, 1,
-	1, 0, 0, 0, 1, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 0, 0, 0, 0, 0, 0, 1,
-	1, 1, 1, 1, 1, 1, 1, 1,
+	'1', '1', '1', '1', '1', '1', '1', '1',
+	'1', '0', '0', '0', '0', '0', '0', '1',
+	'1', '0', '0', '0', '0', '0', '0', '1',
+	'1', '0', '0', '0', '0', '1', '0', '1',
+	'1', '0', '0', '0', '1', '0', '0', '1',
+	'1', '0', '0', '0', '0', '0', '0', '1',
+	'1', '0', '0', '0', '0', '0', '0', '1',
+	'1', '1', '1', '1', '1', '1', '1', '1',
 };
 
 int draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color)
@@ -68,12 +68,12 @@ int	ft_display_map(t_mlx *mlx, int x, int y)
 	{
 		while (x < mapx)
 		{
-			if (map[y * mapx + x] == 1)
+			if (map[y * mapx + x] == '1')
 			{
 				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 					mlx->img_wall.img, x * 64, y * 64);
 			}
-			else if (map[y * mapx + x] == 0)
+			else if (map[y * mapx + x] == '0')
 			{
 				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 					mlx->img_ground.img, x * 64, y * 64);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/06 16:04:22 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:12:11 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <stdio.h>
 # include <X11/Xlib.h>
 
-extern int map[];
+extern char map[];
 
 typedef struct s_player
 {

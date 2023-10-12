@@ -14,7 +14,7 @@
 
 extern int	mapx;
 extern int	mapy;
-extern int	map[];
+extern char	map[];
 
 void	init_vrays_value(t_mlx *mlx)
 {
@@ -53,7 +53,7 @@ void	ft_get_vray_length(t_mlx *mlx)
 		mlx->rays.mx = 500;
 	mlx->rays.mp = mlx->rays.my * mapx + mlx->rays.mx;
 	if (mlx->rays.mp >= 0 && mlx->rays.mp < mapx
-		* mapy && map[mlx->rays.mp] == 1)
+		* mapy && map[mlx->rays.mp] == '1')
 	{
 		mlx->rays.dof = 8;
 	}

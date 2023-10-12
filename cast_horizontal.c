@@ -14,7 +14,7 @@
 
 extern int	mapx;
 extern int	mapy;
-extern int	map[];
+extern char	map[];
 
 float	dist(float ax, float ay, float bx, float by)
 {
@@ -29,7 +29,7 @@ void	ft_get_hray_length(t_mlx *mlx)
 		mlx->rays.mx = 500;
 	mlx->rays.mp = mlx->rays.my * mapx + mlx->rays.mx;
 	if (mlx->rays.mp >= 0 && mlx->rays.mp < mapx * mapy
-		&& map[mlx->rays.mp] == 1)
+		&& map[mlx->rays.mp] == '1')
 	{
 		mlx->rays.hx = mlx->rays.ray_x;
 		mlx->rays.hy = mlx->rays.ray_y;
