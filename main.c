@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/13 00:43:25 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/15 01:46:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,29 @@ void	get_ray_collision(t_mlx *mlx)
 	}
 }
 
+int	gettexture(t_mlx *mlx, int y)
+{
+	char	*dst;
+
+	//int testy1 = ((y - mlx->render3d.wall_top_pixel) / (mlx->render3d.wall_bottom_pixel - mlx->render3d.wall_top_pixel)) * 1500;
+	float testy1 = y - mlx->render3d.wall_top_pixel;
+	float testy2 = mlx->render3d.wall_bottom_pixel - mlx->render3d.wall_top_pixel;
+	float testy3 = 1500 * (testy1 / testy2);
+	float x1 = (int)mlx->rays.ray_x % 64;
+	float x2 = x1 / 64;
+	float x3 = x2 * 1500;
+	//printf("x1: %f\n\n", x1);
+	//printf("x2: %f\n\n", x2);
+	//printf("x3: %f\n\n", x3);
+	//printf("\n\ny: %d\n", y);
+	//printf("testy1 %f\n", testy1);
+	//printf("testy2 %f\n", testy2);
+	//printf("testy3 %d\n", (int)testy3);
+	
+	dst = mlx->img_n.addr + (((int) testy3) * mlx->img_n.line_length + (int)x3 * (mlx->img_n.bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+}
+
 void	set_pixels_by_line(t_mlx *mlx)
 {
 	int	y;
@@ -123,8 +146,8 @@ void	set_pixels_by_line(t_mlx *mlx)
 	{
 		if (mlx->rays.distH < mlx->rays.distV)
 		{
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, 0x00FF0000);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, gettexture(mlx, y));
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, gettexture(mlx, y));
 			/*my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 2, y, 0x00FF0000);
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 3, y, 0x00FF0000);
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 4, y, 0x00FF0000);
@@ -171,8 +194,8 @@ void	ft_draw_rays(t_mlx *mlx)
 		ft_cast_vertical(mlx);
 		ft_cast_horizontal(mlx);
 		get_ray_collision(mlx);
-		draw_line(mlx, mlx->win_ptr, mlx->player.pos_x,
-			mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
+		//draw_line(mlx, mlx->win_ptr, mlx->player.pos_x,
+		//	mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
 		mlx->rays.ray_angle += (DR / 8);
@@ -217,7 +240,6 @@ int	main(int ac, char **av)
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_close, &mlx);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, handlekey, &mlx);
 	mlx_hook(mlx.win_ptr, KeyRelease, KeyReleaseMask, handlekeyrelease, &mlx);
-	printf("%s\n", mlx.pars.map2);
 	ft_display_ground(&mlx);
 	mlx_loop_hook(mlx.mlx_ptr, handleloop, &mlx);
 	mlx_loop(mlx.mlx_ptr);

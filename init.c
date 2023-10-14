@@ -19,6 +19,14 @@ void	imginit(t_data *data, t_mlx *mlx, int img_sizex, int img_sizey)
 			&(data->line_length), &(data->endian));
 }
 
+void	initxpm(t_mlx *mlx, t_data *data, int height, int width, char *name)
+{
+	data->width = width;
+	data->height = height;
+	data->img = mlx_xpm_file_to_image(mlx->mlx_ptr, name, &data->width, &data->height);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+}
+
 void	initimages(t_mlx *mlx)
 {
 	imginit(&mlx->img_font, mlx, 1920, 1080);
@@ -28,6 +36,10 @@ void	initimages(t_mlx *mlx)
 	editimage(&mlx->img_wall, 62, 62, 0x0000FF00);
 	imginit(&mlx->img_player, mlx, 16, 16);
 	editimage(&mlx->img_player, 8, 8, 0xFF000000);
+	initxpm(mlx, &mlx->img_n, 1500, 1500, "./xpmfiles/syakovle.xpm");
+	initxpm(mlx, &mlx->img_s, 1500, 1500, "./xpmfiles/syakovle.xpm");
+	initxpm(mlx, &mlx->img_e, 1500, 1500, "./xpmfiles/syakovle.xpm");
+	initxpm(mlx, &mlx->img_w, 1500, 1500, "./xpmfiles/syakovle.xpm");
 }
 
 void	init(t_mlx *mlx)
