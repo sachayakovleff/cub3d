@@ -39,7 +39,7 @@ void	initimages(t_mlx *mlx)
 	initxpm(mlx, &mlx->img_n, 1500, 1500, "./xpmfiles/syakovle.xpm");
 	initxpm(mlx, &mlx->img_s, 1500, 1500, "./xpmfiles/syakovle.xpm");
 	initxpm(mlx, &mlx->img_e, 1500, 1500, "./xpmfiles/syakovle.xpm");
-	initxpm(mlx, &mlx->img_w, 1500, 1500, "./xpmfiles/syakovle.xpm");
+	initxpm(mlx, &mlx->img_w, 1500, 1500, "./xpmfiles/bquarroz.xpm");
 }
 
 void	init(t_mlx *mlx)

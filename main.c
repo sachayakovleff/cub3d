@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/15 01:46:29 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/15 17:32:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	get_ray_collision(t_mlx *mlx)
 	}
 }
 
-int	gettexture(t_mlx *mlx, int y)
+int	gettexture(t_mlx *mlx, int y, t_data *data)
 {
 	char	*dst;
 
@@ -122,7 +122,7 @@ int	gettexture(t_mlx *mlx, int y)
 	float testy1 = y - mlx->render3d.wall_top_pixel;
 	float testy2 = mlx->render3d.wall_bottom_pixel - mlx->render3d.wall_top_pixel;
 	float testy3 = 1500 * (testy1 / testy2);
-	float x1 = (int)mlx->rays.ray_x % 64;
+	float x1 = fmod(mlx->rays.ray_x, 64);
 	float x2 = x1 / 64;
 	float x3 = x2 * 1500;
 	//printf("x1: %f\n\n", x1);
@@ -133,9 +133,33 @@ int	gettexture(t_mlx *mlx, int y)
 	//printf("testy2 %f\n", testy2);
 	//printf("testy3 %d\n", (int)testy3);
 	
-	dst = mlx->img_n.addr + (((int) testy3) * mlx->img_n.line_length + (int)x3 * (mlx->img_n.bits_per_pixel / 8));
+	dst = data->addr + ((int) testy3 * data->line_length + (int) x3 * (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }
+
+int	gettexture2(t_mlx *mlx, int y, t_data *data)
+{
+	char	*dst;
+
+	//int testy1 = ((y - mlx->render3d.wall_top_pixel) / (mlx->render3d.wall_bottom_pixel - mlx->render3d.wall_top_pixel)) * 1500;
+	float testy1 = y - mlx->render3d.wall_top_pixel;
+	float testy2 = mlx->render3d.wall_bottom_pixel - mlx->render3d.wall_top_pixel;
+	float testy3 = 1500 * (testy1 / testy2);
+	float x1 = fmod(mlx->rays.ray_y, 64);
+	float x2 = x1 / 64;
+	float x3 = x2 * 1500;
+	//printf("x1: %f\n\n", x1);
+	//printf("x2: %f\n\n", x2);
+	//printf("x3: %f\n\n", x3);
+	//printf("\n\ny: %d\n", y);
+	//printf("testy1 %f\n", testy1);
+	//printf("testy2 %f\n", testy2);
+	//printf("testy3 %d\n", (int)testy3);
+	
+	dst = data->addr + (((int) testy3) * data->line_length + (int)x3 * (data->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+}
+
 
 void	set_pixels_by_line(t_mlx *mlx)
 {
@@ -146,8 +170,8 @@ void	set_pixels_by_line(t_mlx *mlx)
 	{
 		if (mlx->rays.distH < mlx->rays.distV)
 		{
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, gettexture(mlx, y));
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, gettexture(mlx, y));
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, gettexture(mlx, y, &mlx->img_n));
+			//my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, gettexture(mlx, y, &mlx->img_n));
 			/*my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 2, y, 0x00FF0000);
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 3, y, 0x00FF0000);
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 4, y, 0x00FF0000);
@@ -157,8 +181,8 @@ void	set_pixels_by_line(t_mlx *mlx)
 		}
 		else
 		{
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, 0x0000FF00);
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, gettexture2(mlx, y, &mlx->img_w));
+			//my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, gettexture2(mlx, y, &mlx->img_w));
 			/*my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 2, y, 0x0000FF00);
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 3, y, 0x0000FF00);
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 4, y, 0x0000FF00);
@@ -188,7 +212,7 @@ void	ft_draw_rays(t_mlx *mlx)
 	mlx->rays.ray_angle = mlx->player.angle;
 	mlx->rays.ray = 0;
 	mlx->rays.ray_angle = mlx->player.angle - (DR * 30);
-	while (mlx->rays.ray < 480)
+	while (mlx->rays.ray < 600)
 	{
 		get_ray_angle(mlx);
 		ft_cast_vertical(mlx);
@@ -198,7 +222,7 @@ void	ft_draw_rays(t_mlx *mlx)
 		//	mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
-		mlx->rays.ray_angle += (DR / 8);
+		mlx->rays.ray_angle += (DR / 10);
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * PI;
 		if (mlx->rays.ray_angle > 2 * PI)

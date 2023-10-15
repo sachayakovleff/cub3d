@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amontign <amontign@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/10/12 19:26:07 by amontign         ###   ########.fr        #
+#    Updated: 2023/10/15 17:44:08 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long.a
+NAME = cub3D.a
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -51,7 +51,7 @@ $(NAME): $(OBJS)
 	@make all -C libft
 	@make all -C printf
 	@make all -C minilibx-linux
-	$(CC) -g3 $(CFLAGS) $(NAME) minilibx-linux/libmlx.a -lm -lX11 -lXext $(PRINTF) $(LIBFT) -o cub3d
+	$(CC) -g3 $(CFLAGS) $(NAME) minilibx-linux/libmlx.a -lm -lX11 -lXext $(PRINTF) $(LIBFT) -o cub3D
 
 all: $(NAME)
 

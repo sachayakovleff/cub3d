@@ -41,7 +41,7 @@ void	init_vrays_value(t_mlx *mlx)
 	{
 		mlx->rays.ray_y = mlx->player.pos_y;
 		mlx->rays.ray_x = mlx->player.pos_x;
-		mlx->rays.dof = 8;
+		mlx->rays.dof = 16;
 	}
 }
 
@@ -55,7 +55,7 @@ void	ft_get_vray_length(t_mlx *mlx)
 	if (mlx->rays.mp >= 0 && mlx->rays.mp < mlx->pars.map_w
 		* (mlx->pars.map_h + 1) && mlx->pars.map2[mlx->rays.mp] == '1')
 	{
-		mlx->rays.dof = 8;
+		mlx->rays.dof = 16;
 	}
 	else
 	{
@@ -69,7 +69,7 @@ void	ft_cast_vertical(t_mlx *mlx)
 {
 	mlx->rays.dof = 0;
 	init_vrays_value(mlx);
-	while (mlx->rays.dof < 8)
+	while (mlx->rays.dof < 16)
 		ft_get_vray_length(mlx);
 	mlx->rays.vx = mlx->rays.ray_x;
 	mlx->rays.vy = mlx->rays.ray_y;
