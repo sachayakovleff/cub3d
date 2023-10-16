@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/14 23:34:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/15 22:14:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_mlx
 	int 		win_x;
 	int 		win_y;
 	t_pars		pars;
+	t_data		img_empty;
 	t_data		img_w;
 	t_data		img_e;
 	t_data		img_s;

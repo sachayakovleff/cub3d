@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/15 17:32:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/16 02:24:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,31 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 int	ft_display_map(t_mlx *mlx, int x, int y)
 {
+	// int i;
+	// int j;
+
+	// i = 0;
+	// j = 0;
+	// while (j < 14)
+	// {
+	// 	while (i < 14)
+	// 	{
+	// 		if (x - 7 + i < 0 || x - 7 + i > ft_strlen(mlx->pars.map[0]))
+	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_empty.img, i * 64, j * 64);
+	// 		else if (y - 7 + j < 0 || y - 7 + j > ft_strlen(mlx->pars.map[0]))
+	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_empty.img, i * 64, j * 64);
+	// 		else if (mlx->pars.map[j][i] == '1')
+	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_wall.img, i * 64, j * 64);
+	// 		else if (mlx->pars.map[j][i] == '0')
+	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ground.img, i * 64, j * 64);
+	// 		else
+	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_empty.img, i * 64, j * 64);
+	// 		i++;
+	// 	}
+	// 	i = 0;
+	// 	j++;
+	// }
+	// return (0);
 	static int	i = 0;
 
 	if (i % 50 != 0)

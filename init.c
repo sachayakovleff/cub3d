@@ -30,10 +30,12 @@ void	initxpm(t_mlx *mlx, t_data *data, int height, int width, char *name)
 void	initimages(t_mlx *mlx)
 {
 	imginit(&mlx->img_font, mlx, 1920, 1080);
-	imginit(&mlx->img_ground, mlx, 62, 62);
-	editimage(&mlx->img_ground, 62, 62, 0x000000FF);
-	imginit(&mlx->img_wall, mlx, 62, 62);
-	editimage(&mlx->img_wall, 62, 62, 0x0000FF00);
+	imginit(&mlx->img_empty, mlx, 64, 64);
+	editimage(&mlx->img_empty, 64, 64, 0x00000000);
+	imginit(&mlx->img_ground, mlx, 64, 64);
+	editimage(&mlx->img_ground, 64, 64, 0x000000FF);
+	imginit(&mlx->img_wall, mlx, 64, 64);
+	editimage(&mlx->img_wall, 64, 64, 0x0000FF00);
 	imginit(&mlx->img_player, mlx, 16, 16);
 	editimage(&mlx->img_player, 8, 8, 0xFF000000);
 	initxpm(mlx, &mlx->img_n, 1500, 1500, "./xpmfiles/syakovle.xpm");
