@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/16 02:24:01 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/16 14:18:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,10 @@ void	set_pixels_by_line(t_mlx *mlx)
 	int	y;
 
 	y = mlx->render3d.wall_top_pixel;
-	while (++y <= mlx->render3d.wall_bottom_pixel)
+	while (++y <= mlx->render3d.wall_bottom_pixel && y <= mlx->win_y)
 	{
+		if (y < 0)
+			continue;
 		if (mlx->rays.distH < mlx->rays.distV)
 		{
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, gettexture(mlx, y, &mlx->img_n));
@@ -224,11 +226,7 @@ void	edit_3d_image(t_mlx *mlx)
 		* ((mlx->win_x / 2) / tan((120 * (PI / 180)) / 2));
 	mlx->render3d.wall_strip_h = (int)mlx->render3d.projected_wall_h;
 	mlx->render3d.wall_top_pixel = (mlx->win_y / 2) - (mlx->render3d.wall_strip_h / 2);
-	if (mlx->render3d.wall_top_pixel < 0)
-		mlx->render3d.wall_top_pixel = 0;
 	mlx->render3d.wall_bottom_pixel = (mlx->win_y / 2) + (mlx->render3d.wall_strip_h / 2);
-	if (mlx->render3d.wall_bottom_pixel > mlx->win_x)
-		mlx->render3d.wall_bottom_pixel = mlx->win_y;
 	set_pixels_by_line(mlx);
 }
 
