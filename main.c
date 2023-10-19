@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/16 14:18:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/19 16:28:04 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,17 +185,25 @@ int	gettexture2(t_mlx *mlx, int y, t_data *data)
 	return (*(unsigned int *)dst);
 }
 
+int convertrgb(int color[3])
+{
+    return ((color[0] & 0xff) << 16) + ((color[1] & 0xff) << 8) + (color[2] & 0xff);
+}
 
 void	set_pixels_by_line(t_mlx *mlx)
 {
 	int	y;
 
-	y = mlx->render3d.wall_top_pixel;
-	while (++y <= mlx->render3d.wall_bottom_pixel && y <= mlx->win_y)
+	y = 0;
+	while (y++ <= mlx->win_y)
 	{
 		if (y < 0)
 			continue;
-		if (mlx->rays.distH < mlx->rays.distV)
+		else if (y < mlx->render3d.wall_top_pixel)
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, convertrgb(mlx->pars.c_colors));
+		else if (y > mlx->render3d.wall_bottom_pixel)
+			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, convertrgb(mlx->pars.f_colors));
+		else if (mlx->rays.distH < mlx->rays.distV)
 		{
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, gettexture(mlx, y, &mlx->img_n));
 			//my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, gettexture(mlx, y, &mlx->img_n));
