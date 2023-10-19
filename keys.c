@@ -51,7 +51,8 @@ void	ft_setmove(t_mlx *mlx)
 		delta_y_neg = -1;
 	if (mlx->player.z == true)
 	{
-		if (mlx->pars.map[pos_y][(int)floor((mlx->player.pos_x + mlx->player.delta_x) / 64  + (0.35 * delta_x_neg))] != '1')
+		if (mlx->pars.map[pos_y][(int)floor((mlx->player.pos_x + mlx->player.delta_x) / 64  + (0.35 * delta_x_neg))] != '1' &&
+			mlx->pars.map[pos_y][(int)floor((mlx->player.pos_x + mlx->player.delta_x) / 64  + (0.35 * delta_x_neg))] != '1')
 			mlx->player.pos_x += mlx->player.delta_x;
 		if (mlx->pars.map[(int)floor((mlx->player.pos_y + mlx->player.delta_y) / 64 + (0.35 * delta_y_neg))][pos_x] != '1')
 			mlx->player.pos_y += mlx->player.delta_y;

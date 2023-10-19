@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:18:00 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/19 17:01:14 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:49:44 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	parsing_main(int argc, char **argv, t_mlx *mlx)
 	}
 	else if (parsing(argv, &mlx->pars) == 0)
 		ret_value = 1;
-	else if (fill_texture_struct(&mlx->pars))
+	else if (fill_texture_struct(&mlx->pars) == 0)
 		ret_value = 1;
 	else if (is_map_valid(mlx->pars.map, &mlx->pars) == 0)
 	{

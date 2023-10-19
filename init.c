@@ -38,10 +38,10 @@ void	initimages(t_mlx *mlx)
 	editimage(&mlx->img_wall, 64, 64, 0x0000FF00);
 	imginit(&mlx->img_player, mlx, 16, 16);
 	editimage(&mlx->img_player, 8, 8, 0xFF000000);
-	initxpm(mlx, &mlx->img_n, 1500, 1500, "./xpmfiles/syakovle.xpm");
-	initxpm(mlx, &mlx->img_s, 1500, 1500, "./xpmfiles/syakovle.xpm");
-	initxpm(mlx, &mlx->img_e, 1500, 1500, "./xpmfiles/syakovle.xpm");
-	initxpm(mlx, &mlx->img_w, 1500, 1500, "./xpmfiles/bquarroz.xpm");
+	initxpm(mlx, &mlx->img_n, mlx->pars.n_t.y_size, mlx->pars.n_t.x_size, mlx->pars.n_t.path);
+	initxpm(mlx, &mlx->img_s, mlx->pars.s_t.y_size, mlx->pars.s_t.x_size, mlx->pars.s_t.path);
+	initxpm(mlx, &mlx->img_e, mlx->pars.e_t.y_size, mlx->pars.e_t.x_size, mlx->pars.e_t.path);
+	initxpm(mlx, &mlx->img_w, mlx->pars.w_t.y_size, mlx->pars.w_t.x_size, mlx->pars.w_t.path);
 }
 
 void	init(t_mlx *mlx)

@@ -1,10 +1,10 @@
 NO ./xpmfiles/bquarroz.xpm
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+SO ./xpmfiles/bquarroz.xpm
+WE ./xpmfiles/syakovle.xpm
+EA ./xpmfiles/syakovle.xpm
 
-F 220,100,0
-C 225,30,0
+F 100,100,100
+C 100,100,190
 
 
         1111111111111111111111111
