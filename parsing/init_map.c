@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:18:00 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/12 18:47:29 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:01:14 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	init_pars(t_pars *pars)
 {
-	pars->n_texture = NULL;
-	pars->s_texture = NULL;
-	pars->e_texture = NULL;
-	pars->w_texture = NULL;
+	pars->n_t.path = NULL;
+	pars->s_t.path = NULL;
+	pars->e_t.path = NULL;
+	pars->w_t.path = NULL;
 	pars->f_colors[0] = -1;
 	pars->f_colors[1] = -1;
 	pars->f_colors[2] = -1;
@@ -30,14 +30,14 @@ void	init_pars(t_pars *pars)
 
 void	free_pars_struct(t_pars *pars)
 {
-	if (pars->n_texture)
-		free(pars->n_texture);
-	if (pars->s_texture)
-		free(pars->s_texture);
-	if (pars->e_texture)
-		free(pars->e_texture);
-	if (pars->w_texture)
-		free(pars->w_texture);
+	if (pars->n_t.path)
+		free(pars->n_t.path);
+	if (pars->s_t.path)
+		free(pars->s_t.path);
+	if (pars->e_t.path)
+		free(pars->e_t.path);
+	if (pars->w_t.path)
+		free(pars->w_t.path);
 	if (pars->map2)
 		free(pars->map2);
 	free_strings_tab(pars->map);
@@ -105,9 +105,9 @@ int	parsing_main(int argc, char **argv, t_mlx *mlx)
 		ret_value = 1;
 	}
 	else if (parsing(argv, &mlx->pars) == 0)
-	{
 		ret_value = 1;
-	}
+	else if (fill_texture_struct(&mlx->pars))
+		ret_value = 1;
 	else if (is_map_valid(mlx->pars.map, &mlx->pars) == 0)
 	{
 		error("Error\nLa map n'est pas valide\n");

@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:06:48 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/06 12:30:12 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:55:12 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	infos_complete(t_pars *pars)
 {
-	if (pars->n_texture && pars->s_texture && pars->e_texture
-		&& pars->w_texture && pars->f_colors[0] >= 0 && pars->f_colors[1] >= 0
+	if (pars->n_t.path && pars->s_t.path && pars->e_t.path
+		&& pars->w_t.path && pars->f_colors[0] >= 0 && pars->f_colors[1] >= 0
 		&& pars->f_colors[2] >= 0 && pars->c_colors[0] >= 0
 		&& pars->c_colors[1] >= 0 && pars->c_colors[2] >= 0)
 	{
@@ -28,19 +28,19 @@ int	str_is_valid(char *str, t_pars *pars)
 {
 	if (strncmp(str, "NO ", 3) == 0)
 	{
-		return (place_texture(str, &pars->n_texture));
+		return (place_texture(str, &pars->n_t.path));
 	}
 	if (strncmp(str, "SO ", 3) == 0)
 	{
-		return (place_texture(str, &pars->s_texture));
+		return (place_texture(str, &pars->s_t.path));
 	}
 	if (strncmp(str, "EA ", 3) == 0)
 	{
-		return (place_texture(str, &pars->e_texture));
+		return (place_texture(str, &pars->e_t.path));
 	}
 	if (strncmp(str, "WE ", 3) == 0)
 	{
-		return (place_texture(str, &pars->w_texture));
+		return (place_texture(str, &pars->w_t.path));
 	}
 	if (strncmp(str, "F ", 2) == 0)
 	{

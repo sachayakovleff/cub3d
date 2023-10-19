@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:44:46 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/12 18:48:00 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:11:51 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,27 @@
 # include <stdlib.h>
 # include <stdio.h>
 
+typedef struct	s_texture {
+	char	*path;
+	int		x_size;
+	int		y_size;
+}				t_texture;
+
+
 typedef struct	s_pars {
-	char	*n_texture;
-	char	*s_texture;
-	char	*e_texture;
-	char	*w_texture;
-	int		f_colors[3];
-	int		c_colors[3];
-	char	**map;
-	char	*map2;
-	int		map_h;
-	int		map_w;
-	int		x_pos;
-	int		y_pos;
-	int		view; // 1 = nord | 2 = sud | 3 = est | 4 = ouest
+	t_texture	n_t;
+	t_texture	s_t;
+	t_texture	e_t;
+	t_texture	w_t;
+	int			f_colors[3];
+	int			c_colors[3];
+	char		**map;
+	char		*map2;
+	int			map_h;
+	int			map_w;
+	int			x_pos;
+	int			y_pos;
+	int			view; // 1 = nord | 2 = sud | 3 = est | 4 = ouest
 }				t_pars;
 
 char	*get_next_line(int fd);
@@ -59,6 +66,7 @@ int		is_map_valid(char **map, t_pars *pars);
 // parsing_fill_infos.c
 int		place_floor_ceiling(char *str, int (*colors)[3]);
 int		place_texture(char *str, char **texture);
+int		fill_texture_struct(t_pars *pars);
 
 // LIBFT
 char	*ft_strdup(const char *s);
