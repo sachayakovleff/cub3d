@@ -57,7 +57,7 @@ int	is_map_valid2(char **map, t_pars *pars)
 			}
 			x++;
 		}
-		pars->map_w = x;
+		pars->map_w = x + 1;
 		y++;
 	}
 	pars->map_h = y;

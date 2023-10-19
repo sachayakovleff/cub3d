@@ -272,6 +272,25 @@ void	editimage(t_data *data, int size_x, int size_y, int color)
 	}
 }
 
+void	print_map2(t_pars *pars)
+{
+	int	i = 0;
+	int	j;
+
+	while (i < pars->map_h)
+	{
+		j = 0;
+		while (j < pars->map_w)
+		{
+			write(1, &pars->map2[i * pars->map_w + j], 1);
+			j++;
+		}
+		printf("%c", '\n');
+		fflush(stdout);
+		i++;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_mlx	mlx;
@@ -281,6 +300,7 @@ int	main(int ac, char **av)
 		free_pars_struct(&mlx.pars);
 		return (1);
 	}
+	print_map2(&mlx.pars);
 	init(&mlx);
 	editimage(&mlx.img_font, 1920, 1080, 0x00000000);
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.win_x, mlx.win_y, "cub3d");
