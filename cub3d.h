@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/15 22:14:12 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/20 15:49:01 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	init_hrays_values(t_mlx *mlx);
 void	ft_cast_horizontal(t_mlx *mlx);
 float 	dist(float ax, float ay, float bx, float by);
 void	ft_cast_vertical(t_mlx *mlx);
+void	imginit(t_data *data, t_mlx *mlx, int img_sizex, int img_sizey);
 
 int		parsing_main(int argc, char **argv, t_mlx *mlx);
 void	free_pars_struct(t_pars *pars);

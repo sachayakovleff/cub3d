@@ -52,7 +52,7 @@ void	init(t_mlx *mlx)
 	mlx->player.q = false;
 	mlx->player.s = false;
 	mlx->player.d = false;
-	mlx->win_x = 1080;
+	mlx->win_x = 1000;
 	mlx->win_y = 1080;
 	mlx->mlx_ptr = mlx_init();
 	mlx->player.delta_x = 1;

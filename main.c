@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/19 16:28:04 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/20 17:56:22 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,57 +58,41 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int	getwall(t_mlx *mlx, int x, int y)
+{
+	if ((int) (mlx->player.pos_x / 64 + x / 30.) < 0 || (int) (mlx->player.pos_x / 64 + x / 30.) >= ft_strlen(mlx->pars.map[0]))
+		return(0xFF000000);
+	if ((int) (mlx->player.pos_y / 64 + y / 30.) < 0 || (int) (mlx->player.pos_y / 64 + y / 30.) >= mlx->pars.map_h + 1)
+		return(0x00000000);
+	if (mlx->pars.map[(int) (mlx->player.pos_y / 64 + y / 30.)][(int) (mlx->player.pos_x / 64 + x / 30.)] == '1')
+		return(0x0000FF00);
+	if (mlx->pars.map[(int) (mlx->player.pos_y / 64 + y / 30.)][(int) (mlx->player.pos_x / 64 + x / 30.)] == '0')
+		return(0x000000FF);
+	return (0x00FF0000);
+}
+
 int	ft_display_map(t_mlx *mlx, int x, int y)
 {
-	// int i;
-	// int j;
+	int	i;
+	int j;
+	t_data map;
 
-	// i = 0;
-	// j = 0;
-	// while (j < 14)
-	// {
-	// 	while (i < 14)
-	// 	{
-	// 		if (x - 7 + i < 0 || x - 7 + i > ft_strlen(mlx->pars.map[0]))
-	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_empty.img, i * 64, j * 64);
-	// 		else if (y - 7 + j < 0 || y - 7 + j > ft_strlen(mlx->pars.map[0]))
-	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_empty.img, i * 64, j * 64);
-	// 		else if (mlx->pars.map[j][i] == '1')
-	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_wall.img, i * 64, j * 64);
-	// 		else if (mlx->pars.map[j][i] == '0')
-	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ground.img, i * 64, j * 64);
-	// 		else
-	// 			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_empty.img, i * 64, j * 64);
-	// 		i++;
-	// 	}
-	// 	i = 0;
-	// 	j++;
-	// }
-	// return (0);
-	static int	i = 0;
-
-	if (i % 50 != 0)
-		return (i++, 0);
-	while (y < mlx->pars.map_h + 1)
+	x = y;
+	i = -250;
+	j = -250;
+	imginit(&map, mlx, 500, 500);
+	while (j < 250)
 	{
-		while (x < mlx->pars.map_w)
+		while (i < 250)
 		{
-			if (mlx->pars.map2[y * mlx->pars.map_w + x] == '1')
-			{
-				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-					mlx->img_wall.img, x * 64, y * 64);
-			}
-			else if (mlx->pars.map2[y * mlx->pars.map_w + x] == '0')
-			{
-				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-					mlx->img_ground.img, x * 64, y * 64);
-			}
-			x++;
+			my_mlx_pixel_put(&map, i + 250, j + 250, getwall(mlx, i-8, j - 28));
+			i++;
 		}
-		x = 0;
-		y++;
+		i = -250;
+		j++;
 	}
-	return (i++, 0);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, map.img, 0, mlx->win_y/4);
+	return (0);
 }
 
 void	get_ray_angle(t_mlx *mlx)
@@ -190,6 +174,17 @@ int convertrgb(int color[3])
     return ((color[0] & 0xff) << 16) + ((color[1] & 0xff) << 8) + (color[2] & 0xff);
 }
 
+int isvalid(t_mlx *mlx)
+{
+	if (mlx->rays.ray_x <= 0 || mlx->rays.ray_y <= 0 || mlx->render3d.distance > 10000)
+		return (-1);
+	if (mlx->rays.ray_x / 64 > mlx->pars.map_w)
+		return (-1);
+	if (mlx->rays.ray_y / 64 > mlx->pars.map_h)
+		return (-1);
+	return (0);
+}
+
 void	set_pixels_by_line(t_mlx *mlx)
 {
 	int	y;
@@ -198,33 +193,15 @@ void	set_pixels_by_line(t_mlx *mlx)
 	while (y++ <= mlx->win_y)
 	{
 		if (y < 0)
-			continue;
-		else if (y < mlx->render3d.wall_top_pixel)
+			continue ;
+		else if ((y < mlx->render3d.wall_top_pixel && mlx->rays.ray_x > 0) || (y < mlx->win_y / 2 && isvalid(mlx) == -1))
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, convertrgb(mlx->pars.c_colors));
-		else if (y > mlx->render3d.wall_bottom_pixel)
+		else if ((y > mlx->render3d.wall_bottom_pixel && mlx->rays.ray_x > 0) || (y >= mlx->win_y / 2 && isvalid(mlx) == -1))
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, convertrgb(mlx->pars.f_colors));
 		else if (mlx->rays.distH < mlx->rays.distV)
-		{
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, gettexture(mlx, y, &mlx->img_n));
-			//my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, gettexture(mlx, y, &mlx->img_n));
-			/*my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 2, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 3, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 4, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 5, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 6, y, 0x00FF0000);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 7, y, 0x00FF0000);*/
-		}
 		else
-		{
 			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1, y, gettexture2(mlx, y, &mlx->img_w));
-			//my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 1, y, gettexture2(mlx, y, &mlx->img_w));
-			/*my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 2, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 1 + 3, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 4, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 5, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 6, y, 0x0000FF00);
-			my_mlx_pixel_put(&(mlx->img_3d), mlx->rays.ray * 4 + 7, y, 0x0000FF00);*/
-		}
 	}
 }
 
@@ -233,8 +210,8 @@ void	edit_3d_image(t_mlx *mlx)
 	mlx->render3d.projected_wall_h = (64 / mlx->render3d.distance)
 		* ((mlx->win_x / 2) / tan((120 * (PI / 180)) / 2));
 	mlx->render3d.wall_strip_h = (int)mlx->render3d.projected_wall_h;
-	mlx->render3d.wall_top_pixel = (mlx->win_y / 2) - (mlx->render3d.wall_strip_h / 2);
-	mlx->render3d.wall_bottom_pixel = (mlx->win_y / 2) + (mlx->render3d.wall_strip_h / 2);
+	mlx->render3d.wall_top_pixel = (mlx->win_y / 2) - (mlx->render3d.wall_strip_h / 2) -10;
+	mlx->render3d.wall_bottom_pixel = (mlx->win_y / 2) + (mlx->render3d.wall_strip_h / 2) + 10;
 	set_pixels_by_line(mlx);
 }
 
