@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/20 15:49:01 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/20 18:32:39 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,17 @@ void	init_hrays_values(t_mlx *mlx);
 void	ft_cast_horizontal(t_mlx *mlx);
 float 	dist(float ax, float ay, float bx, float by);
 void	ft_cast_vertical(t_mlx *mlx);
+void	get_ray_angle(t_mlx *mlx);
 void	imginit(t_data *data, t_mlx *mlx, int img_sizex, int img_sizey);
-
+void	get_ray_collision(t_mlx *mlx);
 int		parsing_main(int argc, char **argv, t_mlx *mlx);
 void	free_pars_struct(t_pars *pars);
+void	edit_3d_image(t_mlx *mlx);
+int		gettexture(t_mlx *mlx, int y, t_data *data);
+int		gettexture2(t_mlx *mlx, int y, t_data *data);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		getwall(t_mlx *mlx, int x, int y);
+int		ft_display_map(t_mlx *mlx, int x, int y);
+
 
 #endif

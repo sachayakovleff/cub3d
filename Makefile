@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amontign <amontign@student.42.fr>          +#+  +:+       +#+         #
+#    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/10/19 17:08:49 by amontign         ###   ########.fr        #
+#    Updated: 2023/10/20 18:11:48 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,9 @@ FILES	=	main								\
 			init								\
 			keys								\
 			display								\
-			cast_horizontal						\
-			cast_vertical						\
+			raycasting/cast_horizontal			\
+			raycasting/cast_vertical			\
+			raycasting/ray_info					\
 			parsing/init_map					\
 			parsing/init_map_utils				\
 			parsing/parsing						\
@@ -35,6 +36,8 @@ FILES	=	main								\
 			parsing/verif_args					\
 			get_next_line/get_next_line_utils	\
 			get_next_line/get_next_line			\
+			render3d/render3d					\
+			get/get
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))

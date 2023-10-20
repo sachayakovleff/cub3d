@@ -12,6 +12,30 @@
 
 #include "cub3d.h"
 
+int	ft_display_map(t_mlx *mlx, int x, int y)
+{
+	int	i;
+	int j;
+	t_data map;
+
+	x = y;
+	i = -250;
+	j = -250;
+	imginit(&map, mlx, 500, 500);
+	while (j < 250)
+	{
+		while (i < 250)
+		{
+			my_mlx_pixel_put(&map, i + 250, j + 250, getwall(mlx, i-8, j - 28));
+			i++;
+		}
+		i = -250;
+		j++;
+	}
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, map.img, 0, mlx->win_y/4);
+	return (0);
+}
+
 int	ft_display_player(t_mlx *mlx)
 {
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_player.img,
