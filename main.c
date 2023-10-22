@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/20 18:33:55 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/22 16:49:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,22 @@ void	print_map2(t_pars *pars)
 	}
 }
 
+void freemlx(t_mlx mlx)
+{
+	mlx_destroy_window(mlx.mlx_ptr, mlx.win_ptr);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_e.img);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_n.img);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_s.img);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_w.img);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_empty.img);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_ground.img);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_wall.img);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_font.img);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_player.img);
+	mlx_destroy_display(mlx.mlx_ptr);
+	free(mlx.mlx_ptr);
+}
+
 int	main(int ac, char **av)
 {
 	t_mlx	mlx;
@@ -102,5 +118,6 @@ int	main(int ac, char **av)
 	mlx_loop_hook(mlx.mlx_ptr, handleloop, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 	free_pars_struct(&mlx.pars);
+	freemlx(mlx);
 	return (0);
 }

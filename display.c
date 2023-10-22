@@ -19,6 +19,7 @@ int	ft_display_map(t_mlx *mlx, int x, int y)
 	t_data map;
 
 	x = y;
+	y = x;
 	i = -250;
 	j = -250;
 	imginit(&map, mlx, 500, 500);
@@ -33,6 +34,7 @@ int	ft_display_map(t_mlx *mlx, int x, int y)
 		j++;
 	}
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, map.img, 0, mlx->win_y/4);
+	mlx_destroy_image(mlx->mlx_ptr, map.img);
 	return (0);
 }
 

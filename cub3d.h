@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/20 18:32:39 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/22 16:05:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,10 @@ void	get_ray_collision(t_mlx *mlx);
 int		parsing_main(int argc, char **argv, t_mlx *mlx);
 void	free_pars_struct(t_pars *pars);
 void	edit_3d_image(t_mlx *mlx);
-int		gettexture(t_mlx *mlx, int y, t_data *data);
-int		gettexture2(t_mlx *mlx, int y, t_data *data);
+int		gettexture_n(t_mlx *mlx, int y, t_data *data);
+int		gettexture_w(t_mlx *mlx, int y, t_data *data);
+int		gettexture_e(t_mlx *mlx, int y, t_data *data);
+int		gettexture_s(t_mlx *mlx, int y, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		getwall(t_mlx *mlx, int x, int y);
 int		ft_display_map(t_mlx *mlx, int x, int y);

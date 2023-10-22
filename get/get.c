@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:09:36 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/20 18:26:00 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/22 16:31:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	getwall(t_mlx *mlx, int x, int y)
 	return (0x00FF0000);
 }
 
-int	gettexture(t_mlx *mlx, int y, t_data *data)
+int	gettexture_n(t_mlx *mlx, int y, t_data *data)
 {
 	char	*dst;
 	float	renderheight;
@@ -39,15 +39,15 @@ int	gettexture(t_mlx *mlx, int y, t_data *data)
 
 	renderheight = mlx->render3d.wall_bottom_pixel
 		- mlx->render3d.wall_top_pixel;
-	rendery = 1500 * ((y - mlx->render3d.wall_top_pixel) / renderheight);
+	rendery = mlx->pars.n_t.y_size * ((y - mlx->render3d.wall_top_pixel) / renderheight);
 	renderwidth = fmod(mlx->rays.ray_x, 64) / 64;
-	width = renderwidth * 1500;
+	width = renderwidth * mlx->pars.n_t.x_size;
 	dst = data->addr + ((int) rendery * data->line_length
 			+ (int) width * (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }
 
-int	gettexture2(t_mlx *mlx, int y, t_data *data)
+int	gettexture_w(t_mlx *mlx, int y, t_data *data)
 {
 	char	*dst;
 	float	renderheight;
@@ -57,9 +57,46 @@ int	gettexture2(t_mlx *mlx, int y, t_data *data)
 
 	renderheight = (mlx->render3d.wall_bottom_pixel
 			- mlx->render3d.wall_top_pixel);
-	rendery = 1500 * ((y - mlx->render3d.wall_top_pixel) / renderheight);
+	rendery = mlx->pars.w_t.y_size * ((y - mlx->render3d.wall_top_pixel) / renderheight);
 	renderwidth = fmod(mlx->rays.ray_y, 64) / 64;
-	width = renderwidth * 1500;
+	width = renderwidth * mlx->pars.w_t.x_size;
+	dst = data->addr + (((int) rendery) * data->line_length
+			+ (int)width * (data->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+}
+
+int	gettexture_s(t_mlx *mlx, int y, t_data *data)
+{
+	char	*dst;
+	float	renderheight;
+	float	rendery;
+	float	renderwidth;
+	float	width;
+
+	renderheight = mlx->render3d.wall_bottom_pixel
+		- mlx->render3d.wall_top_pixel;
+	rendery = mlx->pars.s_t.y_size * ((y - mlx->render3d.wall_top_pixel) / renderheight);
+	renderwidth = fmod(mlx->rays.ray_x, 64) / 64;
+	width = renderwidth * mlx->pars.s_t.x_size;
+	width = mlx->pars.s_t.x_size - width;
+	dst = data->addr + ((int) rendery * data->line_length
+			+ (int) width * (data->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+}
+
+int	gettexture_e(t_mlx *mlx, int y, t_data *data)
+{
+	char	*dst;
+	float	renderheight;
+	float	rendery;
+	float	renderwidth;
+	float	width;
+
+	renderheight = (mlx->render3d.wall_bottom_pixel
+			- mlx->render3d.wall_top_pixel);
+	rendery = mlx->pars.w_t.y_size * ((y - mlx->render3d.wall_top_pixel) / renderheight);
+	renderwidth = fmod(mlx->rays.ray_y, 64) / 64;
+	width = renderwidth * mlx->pars.w_t.x_size;
 	dst = data->addr + (((int) rendery) * data->line_length
 			+ (int)width * (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
