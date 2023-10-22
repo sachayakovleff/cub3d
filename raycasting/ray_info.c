@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:03:08 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/20 18:07:12 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/22 17:07:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_draw_rays(t_mlx *mlx)
 	mlx->rays.ray_angle = mlx->player.angle;
 	mlx->rays.ray = 0;
 	mlx->rays.ray_angle = mlx->player.angle - (DR * 30);
-	while (mlx->rays.ray < 600)
+	while (mlx->rays.ray < 1200)
 	{
 		get_ray_angle(mlx);
 		ft_cast_vertical(mlx);
@@ -56,7 +56,7 @@ void	ft_draw_rays(t_mlx *mlx)
 		//	mlx->player.pos_y, mlx->rays.ray_x, mlx->rays.ray_y, 0xFF000000);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
-		mlx->rays.ray_angle += (DR / 10);
+		mlx->rays.ray_angle += (DR / 20);
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * PI;
 		if (mlx->rays.ray_angle > 2 * PI)
