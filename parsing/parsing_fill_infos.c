@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:27:53 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/19 17:30:29 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:51:09 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	open_and_fill_texture(t_texture *texture)
 		return (1);
 	while (1)
 	{
-		str = get_next_line(fd);
+		str = get_next_line(fd, 0);
 		if (!str)
 			break ;
 		if (str[0] && str[0] == '"')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:44:46 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/19 17:44:05 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:03:16 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_pars {
 	int			view; // 1 = nord | 2 = sud | 3 = est | 4 = ouest
 }				t_pars;
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int clear);
 
 // init_map_utils.c
 void	error(char *str);
@@ -56,6 +56,8 @@ int		is_arg_valid(int argc, char **argv);
 
 // parsing.c
 int		parsing(char **argv, t_pars *pars);
+int		verif_lines_end(int fd);
+int		verif_lines_end2(int fd);
 
 // parsing_map.c
 int		map_parsing(int fd, t_pars *pars);

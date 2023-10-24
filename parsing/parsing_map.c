@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:12:56 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/12 18:48:43 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:01:42 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	map_parsing(int fd, t_pars *pars)
 
 	while (1)
 	{
-		str = get_next_line(fd);
+		str = get_next_line(fd, 0);
 		if (!str)
 			break ;
 		if (!str_is_empty(str))
