@@ -35,7 +35,7 @@ void	ft_get_hray_length(t_mlx *mlx)
 		mlx->rays.hy = mlx->rays.ray_y;
 		mlx->rays.distH = dist(mlx->player.pos_x, mlx->player.pos_y,
 				mlx->rays.hx, mlx->rays.hy);
-		mlx->rays.dof = 16;
+		mlx->rays.dof = 2048;
 	}
 	else
 	{
@@ -70,7 +70,7 @@ void	init_hrays_values(t_mlx *mlx)
 	{
 		mlx->rays.ray_x = mlx->player.pos_x;
 		mlx->rays.ray_y = mlx->player.pos_y;
-		mlx->rays.dof = 16;
+		mlx->rays.dof = 2048;
 	}
 }
 
@@ -78,7 +78,7 @@ void	ft_cast_horizontal(t_mlx *mlx)
 {
 	mlx->rays.dof = 0;
 	init_hrays_values(mlx);
-	while (mlx->rays.dof < 16)
+	while (mlx->rays.dof < 2048)
 		ft_get_hray_length(mlx);
 	mlx->rays.hx = mlx->rays.ray_x;
 	mlx->rays.hy = mlx->rays.ray_y;

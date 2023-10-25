@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/22 16:49:40 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/25 16:48:19 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ int	main(int ac, char **av)
 	}
 	print_map2(&mlx.pars);
 	init(&mlx);
-	editimage(&mlx.img_font, 1920, 1080, 0x00000000);
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.win_x, mlx.win_y, "cub3d");
+	if (mlx.win_ptr == NULL)
+		return (ft_free(&mlx),
+			printf("Error couldn't create the window, Exited\n"), 0);
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_close, &mlx);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, handlekey, &mlx);
 	mlx_hook(mlx.win_ptr, KeyRelease, KeyReleaseMask, handlekeyrelease, &mlx);
