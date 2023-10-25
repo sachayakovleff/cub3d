@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:18:00 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/19 17:49:44 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:55:13 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	finish_map(t_pars *pars)
 		}
 		i++;
 	}
-	pars->map2[(i - 1) * pars->map_w + j + 1] = '\0';
 	set_player_pos(pars);
 }
 

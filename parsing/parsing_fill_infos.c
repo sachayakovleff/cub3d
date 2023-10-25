@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:27:53 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/24 16:51:09 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/25 16:47:04 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,47 +83,51 @@ int	place_floor_ceiling(char *str, int (*colors)[3])
 	free_strings_tab(numbers);
 	return (1);
 }
-void	fill_texture_size(t_texture *texture, char *str)
+int	fill_texture_size(t_texture *texture, char *str, int i)
 {
-	int	i;
+	int	k;
 	int	j;
 
-	i = 1;
-	while (str[i] && str[i] != ' ')
-		i++;
-	i++;
-	j = i;
-	while (str[i] && str[i] != ' ')
-		i++;
-	str[i] = '\0';
-	texture->y_size = ft_atoi(str + j);
+	k = 1;
+	while (str[i + k] && str[i + k] != ' ')
+		k++;
+	k++;
+	j = k;
+	while (str[i + k] && str[i + k] != ' ')
+		k++;
+	str[i + k] = '\0';
+	texture->y_size = ft_atoi(str + i + j);
 	str[j] = '\0';
-	texture->x_size = ft_atoi(str + 1);
+	texture->x_size = ft_atoi(str + i + 1);
+	free(str);
+	return (0);
 }
 
 int	open_and_fill_texture(t_texture *texture)
 {
 	int		fd;
 	char	*str;
+	int		i;
 
+	i = 0;
 	fd = open(texture->path, O_RDONLY);
+	str = malloc(sizeof(char) * 3001);
 	if (fd < 0)
 		return (1);
 	while (1)
 	{
-		str = get_next_line(fd, 0);
-		if (!str)
+		if (read(fd, str, 3000) < 1)
 			break ;
-		if (str[0] && str[0] == '"')
-		{
-			fill_texture_size(texture, str);
-			free(str);
-			close(fd);
-			return (0);
-		}
-		free(str);
+		while (str[i] && str[i] != '"')
+			i++;
+		if (str[i] && str[i] == '"')
+			return (fill_texture_size(texture, str, i));
+		else
+			break ;
 	}
 	error("Error\nMauvais formattage d'une texture\n");
+	if (str)
+		free(str);
 	close(fd);
 	return (1);
 }
