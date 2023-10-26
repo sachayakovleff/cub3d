@@ -6,7 +6,7 @@
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/10/26 18:26:24 by syakovle         ###   ########.fr        #
+#    Updated: 2023/10/26 19:46:13 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ MINILIBX = minilibx-linux/libmlx.a
 FILES	=	main								\
 			init								\
 			keys								\
+			keys_utils							\
 			display								\
 			raycasting/cast_horizontal			\
 			raycasting/cast_vertical			\
@@ -66,7 +67,7 @@ clean:
 	@make clean -C minilibx-linux
 
 fclean: clean
-	$(RM) $(NAME) cub3D
+	$(RM) $(NAME) cub3D cub3D.a
 	@make fclean -C libft
 	@make fclean -C printf
 	@make fclean -C minilibx-linux

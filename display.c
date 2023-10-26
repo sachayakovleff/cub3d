@@ -14,9 +14,9 @@
 
 int	ft_display_map(t_mlx *mlx, int x, int y)
 {
-	int	i;
-	int j;
-	t_data map;
+	int		i;
+	int		j;
+	t_data	map;
 
 	x = y;
 	y = x;
@@ -27,13 +27,15 @@ int	ft_display_map(t_mlx *mlx, int x, int y)
 	{
 		while (i < 250)
 		{
-			my_mlx_pixel_put(&map, i + 250, j + 250, getwall(mlx, i-8, j - 28));
+			my_mlx_pixel_put(&map, i + 250, j + 250,
+				getwall(mlx, i - 8, j - 28));
 			i++;
 		}
 		i = -250;
 		j++;
 	}
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, map.img, 0, mlx->win_y/4);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+		map.img, 0, mlx->win_y / 4);
 	mlx_destroy_image(mlx->mlx_ptr, map.img);
 	return (0);
 }
@@ -42,9 +44,6 @@ int	ft_display_player(t_mlx *mlx)
 {
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_player.img,
 		250, mlx->win_y / 2);
-	//draw_line(mlx, mlx->win_ptr, mlx->player.pos_x, mlx->player.pos_y,
-	//	mlx->player.pos_x + mlx->player.delta_x * 20, mlx->player.pos_y
-	//	+ mlx->player.delta_y * 20, 0x00FF0000);
 	return (0);
 }
 
@@ -63,10 +62,12 @@ int	handleloop(t_mlx *mlx)
 	if (mlx->img_3d.img == NULL)
 		return (printf("error: Couldn't load img_3d\n"),
 			mlx_loop_end(mlx->mlx_ptr));
-	mlx->img_3d.addr = mlx_get_data_addr(mlx->img_3d.img, &(mlx->img_3d.bits_per_pixel),
-		&(mlx->img_3d.line_length), &mlx->img_3d.endian);
+	mlx->img_3d.addr = mlx_get_data_addr(mlx->img_3d.img,
+			&(mlx->img_3d.bits_per_pixel),
+			&(mlx->img_3d.line_length), &mlx->img_3d.endian);
 	ft_draw_rays(mlx);
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_3d.img, 500, 0);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+		mlx->img_3d.img, 500, 0);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->img_3d.img);
 	ft_setmove(mlx);
 	return (0);

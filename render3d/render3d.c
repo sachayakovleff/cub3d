@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render3d.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:08:16 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/22 17:08:35 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/26 19:37:45 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	isvalid(t_mlx *mlx)
 	return (0);
 }
 
-int gettexture(t_mlx *mlx, int y)
+int	gettexture(t_mlx *mlx, int y)
 {
-	if (mlx->rays.distH < mlx->rays.distV)
+	if (mlx->rays.disth < mlx->rays.distv)
 	{
 		if (mlx->rays.ray_angle > PI)
 			return (gettexture_n(mlx, y, &mlx->img_n));
@@ -77,8 +77,8 @@ void	edit_3d_image(t_mlx *mlx)
 		* ((mlx->win_x / 2) / tan((120 * (PI / 180)) / 2));
 	mlx->render3d.wall_strip_h = (int)mlx->render3d.projected_wall_h;
 	mlx->render3d.wall_top_pixel = (mlx->win_y / 2)
-		- (mlx->render3d.wall_strip_h / 2) -20;
+		- (mlx->render3d.wall_strip_h / 2) - 30;
 	mlx->render3d.wall_bottom_pixel = (mlx->win_y / 2)
-		+ (mlx->render3d.wall_strip_h / 2) + 20;
+		+ (mlx->render3d.wall_strip_h / 2) + 30;
 	set_pixels_by_line(mlx);
 }

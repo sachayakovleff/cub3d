@@ -41,27 +41,20 @@ void	handle_angle(t_mlx *mlx)
 
 void	ft_setmove(t_mlx *mlx)
 {
-	int	delta_x_neg = 1;
-	int	delta_y_neg = 1;
-	if (mlx->player.delta_x < 0)
-		delta_x_neg = -1;
-	if (mlx->player.delta_y < 0)
-		delta_y_neg = -1;
-	if (mlx->player.z == true)
-	{
-		if (mlx->pars.map[(int)floor(mlx->player.pos_y
-					/ 64)][(int)floor((mlx->player.pos_x + mlx->player.delta_x)
-				/ 64 + (0.35 * delta_x_neg))] != '1' &&
-			mlx->pars.map[(int)floor(mlx->player.pos_y / 64)][(int)floor((mlx->player.pos_x + mlx->player.delta_x) / 64 + (0.35 * delta_x_neg))] != '1')
-			mlx->player.pos_x += mlx->player.delta_x;
-		if (mlx->pars.map[(int)floor((mlx->player.pos_y + mlx->player.delta_y) / 64 + (0.35 * delta_y_neg))][(int)floor(mlx->player.pos_x / 64)] != '1')
-			mlx->player.pos_y += mlx->player.delta_y;
-	}
+	int		delta_x_neg;
+	int		delta_y_neg;
+
+	getdelta(mlx, &delta_x_neg, &delta_y_neg);
+	w_move(mlx, delta_x_neg, delta_y_neg);
 	if (mlx->player.s == true)
 	{
-		if (mlx->pars.map[(int)floor(mlx->player.pos_y / 64)][(int)floor((mlx->player.pos_x - mlx->player.delta_x) / 64  - (0.35 * delta_x_neg))] != '1')
+		if (mlx->pars.map[(int)floor(mlx->player.pos_y / 64)][(int)floor
+			((mlx->player.pos_x - mlx->player.delta_x) / 64
+				- (0.35 * delta_x_neg))] != '1')
 			mlx->player.pos_x -= mlx->player.delta_x;
-		if (mlx->pars.map[(int)floor((mlx->player.pos_y - mlx->player.delta_y) / 64 - (0.35 * delta_y_neg))][(int)floor(mlx->player.pos_x / 64)] != '1')
+		if (mlx->pars.map[(int)floor((mlx->player.pos_y - mlx->player.delta_y)
+					/ 64 - (0.35 * delta_y_neg))][(int)
+			floor(mlx->player.pos_x / 64)] != '1')
 			mlx->player.pos_y -= mlx->player.delta_y;
 	}
 	handle_angle(mlx);
@@ -69,9 +62,9 @@ void	ft_setmove(t_mlx *mlx)
 
 int	handlekey(int key, t_mlx *mlx)
 {
-	if (key == 122)
+	if (key == 122 || key == 119)
 		mlx->player.z = true;
-	if (key == 113)
+	if (key == 113 || key == 97)
 		mlx->player.q = true;
 	if (key == 115)
 		mlx->player.s = true;
@@ -87,9 +80,9 @@ int	handlekey(int key, t_mlx *mlx)
 
 int	handlekeyrelease(int key, t_mlx *mlx)
 {
-	if (key == 122)
+	if (key == 122 || key == 119)
 		mlx->player.z = false;
-	if (key == 113)
+	if (key == 113 || key == 97)
 		mlx->player.q = false;
 	if (key == 115)
 		mlx->player.s = false;

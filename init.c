@@ -22,15 +22,17 @@ void	imginit(t_data *data, t_mlx *mlx, int img_sizex, int img_sizey)
 			&(data->line_length), &(data->endian));
 }
 
-void	initxpm(t_mlx *mlx, t_data *data, int height, int width, char *name)
+void	initxpm(t_mlx *mlx, t_data *data, t_texture texture)
 {
-	data->width = width;
-	data->height = height;
-	data->img = mlx_xpm_file_to_image(mlx->mlx_ptr, name, &data->width, &data->height);
+	data->width = texture.x_size;
+	data->height = texture.y_size;
+	data->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
+			texture.path, &data->width, &data->height);
 	if (data->img == NULL)
 		return (printf("Error couldn't create image\n"), ft_free(mlx),
 			free_pars_struct(&mlx->pars), exit(1));
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+	data->addr = mlx_get_data_addr(data->img,
+			&data->bits_per_pixel, &data->line_length, &data->endian);
 }
 
 void	initimages(t_mlx *mlx)
@@ -44,10 +46,10 @@ void	initimages(t_mlx *mlx)
 	editimage(&mlx->img_ground, 64, 64, 0x000000FF);
 	editimage(&mlx->img_wall, 64, 64, 0x0000FF00);
 	editimage(&mlx->img_player, 8, 8, 0xFF000000);
-	initxpm(mlx, &mlx->img_n, mlx->pars.n_t.y_size, mlx->pars.n_t.x_size, mlx->pars.n_t.path);
-	initxpm(mlx, &mlx->img_s, mlx->pars.s_t.y_size, mlx->pars.s_t.x_size, mlx->pars.s_t.path);
-	initxpm(mlx, &mlx->img_e, mlx->pars.e_t.y_size, mlx->pars.e_t.x_size, mlx->pars.e_t.path);
-	initxpm(mlx, &mlx->img_w, mlx->pars.w_t.y_size, mlx->pars.w_t.x_size, mlx->pars.w_t.path);
+	initxpm(mlx, &mlx->img_n, mlx->pars.n_t);
+	initxpm(mlx, &mlx->img_s, mlx->pars.s_t);
+	initxpm(mlx, &mlx->img_e, mlx->pars.e_t);
+	initxpm(mlx, &mlx->img_w, mlx->pars.w_t);
 }
 
 void	initall(t_mlx *mlx)

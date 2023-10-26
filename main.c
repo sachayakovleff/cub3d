@@ -6,33 +6,11 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/26 18:17:36 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/26 19:39:24 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int draw_line(t_mlx *mlx, void *win, int beginX, int beginY, int endX, int endY, int color)
-{
-	double deltaX = endX - beginX;
-	double deltaY = endY - beginY;
-	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	deltaX /= pixels;
-	deltaY /= pixels;
-	double pixelX = beginX;
-	double pixelY = beginY;
-	if (pixels > 5000)
-		pixels = 5000;
-	while (pixels)
-	{
-		if (pixelX < mlx->pars.map_w * 64 && pixelY < mlx->pars.map_h * 64)
-			mlx_pixel_put(mlx->mlx_ptr, win, pixelX, pixelY, color);
-		pixelX += deltaX;
-		pixelY += deltaY;
-		--pixels;
-	}
-	return (0);
-}
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -41,8 +19,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
-
-
 
 void	editimage(t_data *data, int size_x, int size_y, int color)
 {
@@ -65,9 +41,10 @@ void	editimage(t_data *data, int size_x, int size_y, int color)
 
 void	print_map2(t_pars *pars)
 {
-	int	i = 0;
+	int	i;
 	int	j;
 
+	i = 0;
 	while (i < pars->map_h)
 	{
 		j = 0;

@@ -12,10 +12,6 @@
 
 #include "../cub3d.h"
 
-/*extern int	mapx;
-extern int	mapy;
-extern char	map[];*/
-
 void	init_vrays_value(t_mlx *mlx)
 {
 	float	ntan;
@@ -73,6 +69,6 @@ void	ft_cast_vertical(t_mlx *mlx)
 		ft_get_vray_length(mlx);
 	mlx->rays.vx = mlx->rays.ray_x;
 	mlx->rays.vy = mlx->rays.ray_y;
-	mlx->rays.distV = dist(mlx->player.pos_x,
+	mlx->rays.distv = dist(mlx->player.pos_x,
 			mlx->player.pos_y, mlx->rays.vx, mlx->rays.vy);
 }
