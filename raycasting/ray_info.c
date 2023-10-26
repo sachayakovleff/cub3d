@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:03:08 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/26 19:38:41 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/26 20:54:18 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ void	get_ray_collision(t_mlx *mlx)
 
 void	ft_draw_rays(t_mlx *mlx)
 {
-	mlx->rays.ray_angle = mlx->player.angle;
 	mlx->rays.ray = 0;
-	mlx->rays.ray_angle = mlx->player.angle - (DR * 30);
+	mlx->rays.ray_angle = mlx->player.angle - 0.349066;
 	while (mlx->rays.ray < 1200)
 	{
 		get_ray_angle(mlx);
@@ -53,7 +52,7 @@ void	ft_draw_rays(t_mlx *mlx)
 		get_ray_collision(mlx);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
-		mlx->rays.ray_angle += (DR / 20);
+		mlx->rays.ray_angle += 0.698132 / mlx->win_y;
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * PI;
 		if (mlx->rays.ray_angle > 2 * PI)
