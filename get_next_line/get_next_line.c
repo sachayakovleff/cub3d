@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontign <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 04:14:17 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/24 16:50:30 by amontign         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:23:48 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*new_temp(char *temp, char *buffer, int *file_end)
 	return (temp2);
 }
 
-char	*get_next_line(int fd, int clear)
+char	*get_next_line(int fd)
 {
 	int			file_end;
 	char		*buffer;
@@ -103,7 +103,7 @@ char	*get_next_line(int fd, int clear)
 	file_end = 0;
 	if (fd < 0)
 		return (NULL);
-	if (!temp || clear == 1)
+	if (!temp)
 		temp = ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!temp)
 		return (NULL);

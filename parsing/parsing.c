@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:06:48 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/24 16:02:38 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:55:12 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	infos_parsing(int fd, t_pars *pars)
 
 	while (!infos_complete(pars))
 	{
-		str = get_next_line(fd, 0);
+		str = get_next_line(fd);
 		if (!str)
 			return (0);
 		if (!str_is_empty(str))
@@ -77,26 +77,6 @@ int	infos_parsing(int fd, t_pars *pars)
 	return (1);
 }
 
-int	verif_lines_end2(int fd)
-{
-	char	*str;
-	int		ret_value;
-
-	ret_value = 1;
-	while (1)
-	{
-		str = get_next_line(fd, 1);
-		if (!str)
-			break ;
-		if (!str_is_empty(str))
-		{
-			ret_value = 0;
-		}
-		free(str);
-	}
-	return (ret_value);
-}
-
 int	verif_lines_end(int fd)
 {
 	char	*str;
@@ -105,7 +85,7 @@ int	verif_lines_end(int fd)
 	ret_value = 1;
 	while (1)
 	{
-		str = get_next_line(fd, 0);
+		str = get_next_line(fd);
 		if (!str)
 			break ;
 		if (!str_is_empty(str))

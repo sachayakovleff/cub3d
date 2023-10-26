@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/22 16:05:13 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/26 18:11:55 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_mlx
 	t_render_3d	render3d;
 }				t_mlx;
 
+void	ft_free(t_mlx *mlx);
 void 	initimages(t_mlx *mlx);
 void 	init(t_mlx *mlx);
 int		ft_close(t_mlx *mlx);

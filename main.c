@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/25 16:48:19 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:17:36 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,6 @@ void	print_map2(t_pars *pars)
 	}
 }
 
-void freemlx(t_mlx mlx)
-{
-	mlx_destroy_window(mlx.mlx_ptr, mlx.win_ptr);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_e.img);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_n.img);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_s.img);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_w.img);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_empty.img);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_ground.img);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_wall.img);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_font.img);
-	mlx_destroy_image(mlx.mlx_ptr, mlx.img_player.img);
-	mlx_destroy_display(mlx.mlx_ptr);
-	free(mlx.mlx_ptr);
-}
-
 int	main(int ac, char **av)
 {
 	t_mlx	mlx;
@@ -112,7 +96,8 @@ int	main(int ac, char **av)
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.win_x, mlx.win_y, "cub3d");
 	if (mlx.win_ptr == NULL)
 		return (ft_free(&mlx),
-			printf("Error couldn't create the window, Exited\n"), 0);
+			printf("Error couldn't create the window, Exited\n"),
+			free_pars_struct(&mlx.pars), 1);
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_close, &mlx);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, handlekey, &mlx);
 	mlx_hook(mlx.win_ptr, KeyRelease, KeyReleaseMask, handlekeyrelease, &mlx);
@@ -120,6 +105,6 @@ int	main(int ac, char **av)
 	mlx_loop_hook(mlx.mlx_ptr, handleloop, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 	free_pars_struct(&mlx.pars);
-	freemlx(mlx);
+	ft_free(&mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/10/20 18:11:48 by syakovle         ###   ########.fr        #
+#    Updated: 2023/10/26 18:26:24 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ FILES	=	main								\
 			get_next_line/get_next_line_utils	\
 			get_next_line/get_next_line			\
 			render3d/render3d					\
-			get/get
+			get/get								\
+			free
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
@@ -65,7 +66,7 @@ clean:
 	@make clean -C minilibx-linux
 
 fclean: clean
-	$(RM) $(NAME) so_long
+	$(RM) $(NAME) cub3D
 	@make fclean -C libft
 	@make fclean -C printf
 	@make fclean -C minilibx-linux
