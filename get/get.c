@@ -6,11 +6,16 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:09:36 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/26 19:28:39 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:03:29 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+bool	getletter(char value)
+{
+	return (value == 'N' || value == 'S' || value == 'E' || value == 'W');
+}
 
 int	getwall(t_mlx *mlx, int x, int y)
 {
@@ -19,13 +24,16 @@ int	getwall(t_mlx *mlx, int x, int y)
 		return (0xFF000000);
 	if ((int)(mlx->player.pos_y / 64 + y / 30.) < 0 || (int)(mlx->player.pos_y
 		/ 64 + y / 30.) >= mlx->pars.map_h + 1)
-		return (0x00000000);
+		return (0x00660000);
 	if (mlx->pars.map[(int)(mlx->player.pos_y / 64 + y / 30.)][(int)
 			(mlx->player.pos_x / 64 + x / 30.)] == '1')
 		return (0x0000FF00);
 	if (mlx->pars.map[(int)(mlx->player.pos_y / 64 + y / 30.)][(int)
 			(mlx->player.pos_x / 64 + x / 30.)] == '0')
 		return (0x000000FF);
+	if (getletter(mlx->pars.map[(int)(mlx->player.pos_y / 64 + y / 30.)][(int)
+		(mlx->player.pos_x / 64 + x / 30.)]) == true)
+		return (0x0000FFFF);
 	return (0x00FF0000);
 }
 

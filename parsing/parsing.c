@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:06:48 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/19 15:55:12 by amontign         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:24:46 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,14 @@ int	parsing(char **argv, t_pars *pars)
 		verif_lines_end(fd);
 	if (error_val == 0)
 	{
-		error("Error\nFormattage de la carte incorrect\n");
+		//error("Error\nFormattage de la carte incorrect\n");
+		error("Error\n");
 		return (0);
 	}
 	if (error_val == 2)
 	{
-		error("Error\nAllocation echouee\n");
+		//error("Error\nAllocation echouee\n");
+		error("Error\n");	
 		return (0);
 	}
 	close(fd);

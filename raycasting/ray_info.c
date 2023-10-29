@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:03:08 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/26 20:54:18 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:13:06 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_draw_rays(t_mlx *mlx)
 		get_ray_collision(mlx);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
-		mlx->rays.ray_angle += 0.698132 / mlx->win_y;
+		mlx->rays.ray_angle += (float)(0.698132) / mlx->win_y;
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * PI;
 		if (mlx->rays.ray_angle > 2 * PI)

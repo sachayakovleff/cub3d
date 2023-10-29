@@ -68,23 +68,40 @@ void	initall(t_mlx *mlx)
 	mlx->win_ptr = NULL;
 }
 
+float	getstartangle(int view)
+{
+	if (view == 3)
+		return (0.0f);
+	if (view == 1)
+		return (P2);
+	if (view == 4)
+		return (PI);
+	if (view == 2)
+		return (P3);
+	else
+		return (0.0f);
+
+}
+
 void	init(t_mlx *mlx)
 {
 	initall(mlx);
-	mlx->player.pos_x = 290;
-	mlx->player.pos_y = 500;
+	mlx->player.pos_x = 32 + (mlx->pars.x_pos * 64);
+	mlx->player.pos_y = 32 + (mlx->pars.y_pos * 64);
 	mlx->player.z = false;
 	mlx->player.q = false;
 	mlx->player.s = false;
 	mlx->player.d = false;
+	mlx->player.l = false;
+	mlx->player.r = false;
 	mlx->win_x = 1920;
 	mlx->win_y = 1080;
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
 		return (printf("Error mlx_init returned NULL ptr\n"),
 			free_pars_struct(&mlx->pars), exit(1));
-	mlx->player.delta_x = 1;
-	mlx->player.delta_y = 0;
-	mlx->player.angle = 0;
+	mlx->player.angle = getstartangle(mlx->pars.view);
+	mlx->player.delta_x = cos(mlx->player.angle);
+	mlx->player.delta_y = sin(mlx->player.angle);
 	initimages(mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:27:53 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/26 18:14:32 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/29 17:24:15 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ int	open_and_fill_texture(t_texture *texture)
 		else
 			break ;
 	}
-	error("Error\nMauvais formattage d'une texture\n");
+	//error("Error\nMauvais formattage d'une texture\n");
+	error("Error\n");
 	if (str)
 		free(str);
 	close(fd);

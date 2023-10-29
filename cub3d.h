@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/26 19:44:10 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/27 18:30:19 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,15 @@ typedef struct s_player
 	float	pos_x;
 	float	delta_x;
 	float	delta_y;
+	float	delta_r;
+	float	delta_l;
 	float	angle;
 	bool	z;
 	bool	q;
 	bool	s;
 	bool	d;
+	bool	l;
+	bool	r;
 }				t_player;
 
 typedef struct s_data
@@ -104,7 +108,6 @@ typedef struct s_mlx
 }				t_mlx;
 
 void	getdelta(t_mlx *mlx, int *delta_x_neg, int *delta_y_neg);
-void	w_move(t_mlx *mlx, int delta_x_neg, int delta_y_neg);
 void	ft_free(t_mlx *mlx);
 void	initimages(t_mlx *mlx);
 void	init(t_mlx *mlx);
@@ -136,5 +139,10 @@ int		gettexture_s(t_mlx *mlx, int y, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		getwall(t_mlx *mlx, int x, int y);
 int		ft_display_map(t_mlx *mlx, int x, int y);
+void	w_move(t_mlx *mlx);
+void	a_move(t_mlx *mlx);
+void	s_move(t_mlx *mlx);
+void	d_move(t_mlx *mlx);
+
 
 #endif

@@ -1,11 +1,10 @@
-NO ./xpmfiles/42.xpm
+ NO ./xpmfiles/42.xpm
 SO ./xpmfiles/amontign.xpm
 WE ./xpmfiles/bquarroz.xpm
 EA ./xpmfiles/syakovle.xpm
 
 F 100,100,100
 C 100,100,190
-
 
         1111111111111111111111111
         10000000001100000000000001
