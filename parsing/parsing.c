@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:06:48 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/29 17:24:46 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/29 18:20:07 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,12 @@ int	parsing(char **argv, t_pars *pars)
 		verif_lines_end(fd);
 	if (error_val == 0)
 	{
-		//error("Error\nFormattage de la carte incorrect\n");
-		error("Error\n");
+		error("Error\nFormattage de la carte incorrect\n");
 		return (0);
 	}
 	if (error_val == 2)
 	{
-		//error("Error\nAllocation echouee\n");
-		error("Error\n");	
+		error("Error\nAllocation echouee\n");
 		return (0);
 	}
 	close(fd);

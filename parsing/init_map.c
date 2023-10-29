@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:18:00 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/29 17:23:36 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/29 18:19:29 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ int	parsing_main(int argc, char **argv, t_mlx *mlx)
 		ret_value = 1;
 	else if (is_map_valid(mlx->pars.map, &mlx->pars) == 0)
 	{
-		//error("Error\nLa map n'est pas valide\n");
-		error("Error\n");
+		error("Error\nLa map n'est pas valide\n");
 		ret_value = 1;
 	}
 	if (ret_value == 0)
