@@ -6,14 +6,14 @@
 #    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/10/26 19:46:13 by syakovle         ###   ########.fr        #
+#    Updated: 2023/10/30 17:07:56 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O3
 AR = ar rcs
 RM = rm -f
 LIBFT = libft/libft.a

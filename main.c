@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/29 17:10:28 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:53:58 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,11 @@ int	main(int ac, char **av)
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_close, &mlx);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, handlekey, &mlx);
 	mlx_hook(mlx.win_ptr, KeyRelease, KeyReleaseMask, handlekeyrelease, &mlx);
+	mlx.img_3d.img = mlx_new_image(mlx.mlx_ptr, 1200, mlx.win_y);
 	ft_display_ground(&mlx);
 	mlx_loop_hook(mlx.mlx_ptr, handleloop, &mlx);
 	mlx_loop(mlx.mlx_ptr);
+	mlx_destroy_image(mlx.mlx_ptr, mlx.img_3d.img);
 	free_pars_struct(&mlx.pars);
 	ft_free(&mlx);
 	return (0);

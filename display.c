@@ -58,7 +58,6 @@ int	handleloop(t_mlx *mlx)
 {
 	ft_display_map(mlx, 0, 0);
 	ft_display_player(mlx);
-	mlx->img_3d.img = mlx_new_image(mlx->mlx_ptr, 1200, mlx->win_y);
 	if (mlx->img_3d.img == NULL)
 		return (printf("error: Couldn't load img_3d\n"),
 			mlx_loop_end(mlx->mlx_ptr));
@@ -68,7 +67,6 @@ int	handleloop(t_mlx *mlx)
 	ft_draw_rays(mlx);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 		mlx->img_3d.img, 500, 0);
-	mlx_destroy_image(mlx->mlx_ptr, mlx->img_3d.img);
 	ft_setmove(mlx);
 	return (0);
 }

@@ -6,11 +6,12 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:03:08 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/29 17:13:06 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:58:20 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+#include <math.h>
 
 void	get_ray_angle(t_mlx *mlx)
 {
@@ -43,7 +44,7 @@ void	get_ray_collision(t_mlx *mlx)
 void	ft_draw_rays(t_mlx *mlx)
 {
 	mlx->rays.ray = 0;
-	mlx->rays.ray_angle = mlx->player.angle - 0.349066;
+	mlx->rays.ray_angle = mlx->player.angle - 0.698132 * 2 / 2;
 	while (mlx->rays.ray < 1200)
 	{
 		get_ray_angle(mlx);
@@ -52,7 +53,9 @@ void	ft_draw_rays(t_mlx *mlx)
 		get_ray_collision(mlx);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
-		mlx->rays.ray_angle += (float)(0.698132) / mlx->win_y;
+		mlx->rays.ray_angle = mlx->player.angle 
+			+ atan((mlx->rays.ray - 1200 / 2)
+				/ ((mlx->win_x / 2) / tan((120 * (M_PI / 180)) / 2)));
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * PI;
 		if (mlx->rays.ray_angle > 2 * PI)
