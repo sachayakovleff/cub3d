@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/11/06 14:19:56 by marvin           ###   ########.fr       */
+/*   Updated: 2023/11/07 17:46:25 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int ac, char **av)
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_close, &mlx);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, handlekey, &mlx);
 	mlx_hook(mlx.win_ptr, KeyRelease, KeyReleaseMask, handlekeyrelease, &mlx);
-	mlx.img_3d.img = mlx_new_image(mlx.mlx_ptr, 1200, mlx.win_y);
+	mlx.img_3d.img = mlx_new_image(mlx.mlx_ptr, 1400, mlx.win_y);
 	ft_display_ground(&mlx);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.syakovle.img, 0, 0);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.amontign.img, 0, 760);	
