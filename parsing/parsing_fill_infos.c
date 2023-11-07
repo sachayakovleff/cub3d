@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:27:53 by amontign          #+#    #+#             */
-/*   Updated: 2023/11/07 11:09:19 by amontign         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:30:46 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,25 +85,6 @@ int	place_floor_ceiling(char *str, int (*colors)[3])
 	(*colors)[2] = ft_atoi(numbers[2]);
 	free_strings_tab(numbers);
 	return (1);
-}
-int	fill_texture_size(t_texture *texture, char *str, int i)
-{
-	int	k;
-	int	j;
-
-	k = 1;
-	while (str[i + k] && str[i + k] != ' ')
-		k++;
-	k++;
-	j = k;
-	while (str[i + k] && str[i + k] != ' ')
-		k++;
-	str[i + k] = '\0';
-	texture->y_size = ft_atoi(str + i + j);
-	str[j] = '\0';
-	texture->x_size = ft_atoi(str + i + 1);
-	free(str);
-	return (0);
 }
 
 int	open_and_fill_texture(t_texture *texture)
