@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:44 by marvin            #+#    #+#             */
-/*   Updated: 2023/11/07 17:46:25 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:11:59 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,12 @@ int	main(int ac, char **av)
 	}
 	print_map2(&mlx.pars);
 	init(&mlx);
-	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.win_x, mlx.win_y, "cub3d");
-	if (mlx.win_ptr == NULL)
-		return (ft_free(&mlx),
-			printf("Error couldn't create the window, Exited\n"),
-			free_pars_struct(&mlx.pars), 1);
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_close, &mlx);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, handlekey, &mlx);
 	mlx_hook(mlx.win_ptr, KeyRelease, KeyReleaseMask, handlekeyrelease, &mlx);
-	mlx.img_3d.img = mlx_new_image(mlx.mlx_ptr, 1400, mlx.win_y);
 	ft_display_ground(&mlx);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.syakovle.img, 0, 0);
-	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.amontign.img, 0, 760);	
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.amontign.img, 0, 760);
 	mlx_loop_hook(mlx.mlx_ptr, handleloop, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 	mlx_destroy_image(mlx.mlx_ptr, mlx.img_3d.img);

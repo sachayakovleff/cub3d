@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:09:36 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/31 01:29:34 by marvin           ###   ########.fr       */
+/*   Updated: 2023/11/07 18:23:39 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-bool	getletter(char value)
-{
-	return (value == 'N' || value == 'S' || value == 'E' || value == 'W');
-}
+
 
 int	getwall(t_mlx *mlx, int x, int y)
 {
