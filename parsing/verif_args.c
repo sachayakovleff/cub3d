@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:57:42 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/29 18:20:23 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:44:46 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	is_arg_valid(int argc, char **argv)
 		error("Error\nNombre d'arguments invalides\n");
 		return (0);
 	}
-	file_name_len = strlen(argv[1]);
+	file_name_len = ft_strlen(argv[1]);
 	if (file_name_len < 5)
 	{
 		error("Error\nNom du fichier invalide\n");

@@ -6,16 +6,11 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:09:36 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/29 17:03:29 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:31:42 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-bool	getletter(char value)
-{
-	return (value == 'N' || value == 'S' || value == 'E' || value == 'W');
-}
 
 int	getwall(t_mlx *mlx, int x, int y)
 {
@@ -70,6 +65,7 @@ int	gettexture_w(t_mlx *mlx, int y, t_data *data)
 			(y - mlx->render3d.wall_top_pixel) / renderheight);
 	renderwidth = fmod(mlx->rays.ray_y, 64) / 64;
 	width = renderwidth * mlx->pars.w_t.x_size;
+	width = mlx->pars.w_t.x_size - width;
 	dst = data->addr + (((int) rendery) * data->line_length
 			+ (int)width * (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
@@ -105,10 +101,10 @@ int	gettexture_e(t_mlx *mlx, int y, t_data *data)
 
 	renderheight = (mlx->render3d.wall_bottom_pixel
 			- mlx->render3d.wall_top_pixel);
-	rendery = mlx->pars.w_t.y_size * (
+	rendery = mlx->pars.e_t.y_size * (
 			(y - mlx->render3d.wall_top_pixel) / renderheight);
 	renderwidth = fmod(mlx->rays.ray_y, 64) / 64;
-	width = renderwidth * mlx->pars.w_t.x_size;
+	width = renderwidth * mlx->pars.e_t.x_size;
 	dst = data->addr + (((int) rendery) * data->line_length
 			+ (int)width * (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);

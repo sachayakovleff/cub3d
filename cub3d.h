@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/27 18:30:19 by syakovle         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:07:00 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ typedef struct s_mlx
 	int			win_x;
 	int			win_y;
 	t_pars		pars;
+	t_data		amontign;
+	t_data		syakovle;
 	t_data		img_empty;
 	t_data		img_w;
 	t_data		img_e;
@@ -143,6 +145,8 @@ void	w_move(t_mlx *mlx);
 void	a_move(t_mlx *mlx);
 void	s_move(t_mlx *mlx);
 void	d_move(t_mlx *mlx);
-
+float	getstartangle(int view);
+bool	getletter(char value);
+void	getdelta(t_mlx *mlx, int *delta_x_neg, int *delta_y_neg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:03:08 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/30 17:58:20 by syakovle         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:14:11 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	get_ray_collision(t_mlx *mlx)
 void	ft_draw_rays(t_mlx *mlx)
 {
 	mlx->rays.ray = 0;
-	mlx->rays.ray_angle = mlx->player.angle - 0.698132 * 2 / 2;
-	while (mlx->rays.ray < 1200)
+	mlx->rays.ray_angle = mlx->player.angle 
+		+ atan((mlx->rays.ray - 1400 / 2)
+			/ ((mlx->win_x / 2) / tan((120 * (M_PI / 180)) / 2)));
+	while (mlx->rays.ray < 1400)
 	{
 		get_ray_angle(mlx);
 		ft_cast_vertical(mlx);
@@ -53,12 +55,13 @@ void	ft_draw_rays(t_mlx *mlx)
 		get_ray_collision(mlx);
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
-		mlx->rays.ray_angle = mlx->player.angle 
-			+ atan((mlx->rays.ray - 1200 / 2)
-				/ ((mlx->win_x / 2) / tan((120 * (M_PI / 180)) / 2)));
+		mlx->rays.ray_angle += DR / 32;
+		mlx->rays.ray_angle = mlx->player.angle
+		 	+ atan((mlx->rays.ray - 1400 / 2)
+		 		/ ((mlx->win_x / 2) / tan((120 * (M_PI / 180)) / 2)));
 		if (mlx->rays.ray_angle < 0)
-			mlx->rays.ray_angle += 2 * PI;
-		if (mlx->rays.ray_angle > 2 * PI)
-			mlx->rays.ray_angle -= 2 * PI;
+			mlx->rays.ray_angle += 2 * M_PI;
+		if (mlx->rays.ray_angle > 2 * M_PI)
+			mlx->rays.ray_angle -= 2 * M_PI;
 	}
 }

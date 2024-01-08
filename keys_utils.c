@@ -12,16 +12,6 @@
 
 #include "cub3d.h"
 
-void	getdelta(t_mlx *mlx, int *delta_x_neg, int *delta_y_neg)
-{
-	*delta_x_neg = 1;
-	*delta_y_neg = 1;
-	if (mlx->player.delta_x < 0)
-		*delta_x_neg = -1;
-	if (mlx->player.delta_y < 0)
-		*delta_y_neg = -1;
-}
-
 void	getdelta2(int *delta_x_neg, int *delta_y_neg, float angle)
 {
 	*delta_x_neg = 1;

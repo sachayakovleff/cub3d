@@ -6,7 +6,7 @@
 /*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:59:28 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/26 18:03:02 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:55:00 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_free(t_mlx *mlx)
 	ft_destroy_image(mlx->mlx_ptr, mlx->img_wall.img);
 	ft_destroy_image(mlx->mlx_ptr, mlx->img_font.img);
 	ft_destroy_image(mlx->mlx_ptr, mlx->img_player.img);
+	ft_destroy_image(mlx->mlx_ptr, mlx->amontign.img);
+	ft_destroy_image(mlx->mlx_ptr, mlx->syakovle.img);
 	if (mlx->mlx_ptr != NULL)
 	{
 		mlx_destroy_display(mlx->mlx_ptr);
