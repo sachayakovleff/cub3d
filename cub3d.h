@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:33:03 by marvin            #+#    #+#             */
-/*   Updated: 2023/11/06 13:57:27 by marvin           ###   ########.fr       */
+/*   Updated: 2023/11/07 18:24:40 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ void	w_move(t_mlx *mlx);
 void	a_move(t_mlx *mlx);
 void	s_move(t_mlx *mlx);
 void	d_move(t_mlx *mlx);
+float	getstartangle(int view);
+bool	getletter(char value);
 
 
 #endif

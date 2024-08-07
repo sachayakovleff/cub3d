@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_fill_infos.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:27:53 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/29 18:19:44 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:30:46 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,31 +76,15 @@ int	place_floor_ceiling(char *str, int (*colors)[3])
 	if (!numbers)
 		return (2);
 	if (!numbers_valid(numbers))
+	{
+		free_strings_tab(numbers);
 		return (0);
+	}
 	(*colors)[0] = ft_atoi(numbers[0]);
 	(*colors)[1] = ft_atoi(numbers[1]);
 	(*colors)[2] = ft_atoi(numbers[2]);
 	free_strings_tab(numbers);
 	return (1);
-}
-int	fill_texture_size(t_texture *texture, char *str, int i)
-{
-	int	k;
-	int	j;
-
-	k = 1;
-	while (str[i + k] && str[i + k] != ' ')
-		k++;
-	k++;
-	j = k;
-	while (str[i + k] && str[i + k] != ' ')
-		k++;
-	str[i + k] = '\0';
-	texture->y_size = ft_atoi(str + i + j);
-	str[j] = '\0';
-	texture->x_size = ft_atoi(str + i + 1);
-	free(str);
-	return (0);
 }
 
 int	open_and_fill_texture(t_texture *texture)
@@ -111,9 +95,9 @@ int	open_and_fill_texture(t_texture *texture)
 
 	i = 0;
 	fd = open(texture->path, O_RDONLY);
-	str = malloc(sizeof(char) * 3001);
 	if (fd < 0)
 		return (1);
+	str = malloc(sizeof(char) * 3001);
 	while (1)
 	{
 		if (read(fd, str, 3000) < 1)

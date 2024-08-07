@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 11:44:46 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/26 19:30:14 by syakovle         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:31:15 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef struct	s_texture {
+typedef struct s_texture {
 	char	*path;
 	int		x_size;
 	int		y_size;
 }				t_texture;
 
-
-typedef struct	s_pars {
+typedef struct s_pars {
 	t_texture	n_t;
 	t_texture	s_t;
 	t_texture	e_t;
@@ -40,7 +39,7 @@ typedef struct	s_pars {
 	int			map_w;
 	int			x_pos;
 	int			y_pos;
-	int			view; // 1 = nord | 2 = sud | 3 = est | 4 = ouest
+	int			view;
 }				t_pars;
 
 char	*get_next_line(int fd);
@@ -62,6 +61,7 @@ int		map_parsing(int fd, t_pars *pars);
 
 // map_verif.c
 int		is_map_valid(char **map, t_pars *pars);
+int		fill_texture_size(t_texture *texture, char *str, int i);
 
 // parsing_fill_infos.c
 int		place_floor_ceiling(char *str, int (*colors)[3]);

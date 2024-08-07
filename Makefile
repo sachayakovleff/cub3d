@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 02:23:38 by syakovle          #+#    #+#              #
-#    Updated: 2023/11/05 18:12:13 by marvin           ###   ########.fr        #
+#    Updated: 2023/11/07 18:26:36 by syakovle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ MINILIBX = minilibx-linux/libmlx.a
 
 FILES	=	main								\
 			init								\
+			init_utils							\
 			keys								\
 			keys_utils							\
 			display								\
@@ -39,6 +40,7 @@ FILES	=	main								\
 			get_next_line/get_next_line			\
 			render3d/render3d					\
 			get/get								\
+			get/get_utils						\
 			free
 
 SRCS_DIR = ./
@@ -70,7 +72,7 @@ fclean: clean
 	$(RM) $(NAME) cub3D cub3D.a
 	@make fclean -C libft
 	@make fclean -C printf
-	@make fclean -C minilibx-linux
+	@make clean -C minilibx-linux
 	
 re: clean all
 

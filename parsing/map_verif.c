@@ -6,7 +6,7 @@
 /*   By: amontign <amontign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:18:18 by amontign          #+#    #+#             */
-/*   Updated: 2023/10/12 17:39:39 by amontign         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:31:04 by amontign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,24 @@ int	is_map_valid(char **map, t_pars *pars)
 		}
 	}
 	return (is_map_valid2(map, pars));
+}
+
+int	fill_texture_size(t_texture *texture, char *str, int i)
+{
+	int	k;
+	int	j;
+
+	k = 1;
+	while (str[i + k] && str[i + k] != ' ')
+		k++;
+	k++;
+	j = k;
+	while (str[i + k] && str[i + k] != ' ')
+		k++;
+	str[i + k] = '\0';
+	texture->y_size = ft_atoi(str + i + j);
+	str[j] = '\0';
+	texture->x_size = ft_atoi(str + i + 1);
+	free(str);
+	return (0);
 }

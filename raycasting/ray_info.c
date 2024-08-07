@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: syakovle <syakovle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 18:03:08 by syakovle          #+#    #+#             */
-/*   Updated: 2023/10/31 01:24:30 by marvin           ###   ########.fr       */
+/*   Updated: 2023/11/07 17:48:20 by syakovle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	ft_draw_rays(t_mlx *mlx)
 {
 	mlx->rays.ray = 0;
 	mlx->rays.ray_angle = mlx->player.angle 
-			+ atan((mlx->rays.ray - 1200 / 2)
+			+ atan((mlx->rays.ray - 1400 / 2)
 				/ ((mlx->win_x / 2) / tan((120 * (M_PI / 180)) / 2)));
-	while (mlx->rays.ray < 1200)
+	while (mlx->rays.ray < 1400)
 	{
 		get_ray_angle(mlx);
 		ft_cast_vertical(mlx);
@@ -56,7 +56,7 @@ void	ft_draw_rays(t_mlx *mlx)
 		edit_3d_image(mlx);
 		mlx->rays.ray++;
 		mlx->rays.ray_angle = mlx->player.angle
-			+ atan((mlx->rays.ray - 1200 / 2)
+			+ atan((mlx->rays.ray - 1400 / 2)
 				/ ((mlx->win_x / 2) / tan((120 * (M_PI / 180)) / 2)));
 		if (mlx->rays.ray_angle < 0)
 			mlx->rays.ray_angle += 2 * M_PI;
