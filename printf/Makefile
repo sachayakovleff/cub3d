@@ -13,7 +13,7 @@
 NAME = ft_printf.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =  -O3
 AR = ar rcs
 RM = rm -f
 LIBFT = ../libft/libft.a
