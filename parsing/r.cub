@@ -1,7 +1,7 @@
 NO ./xpmfiles/42.xpm
-SO ./xpmfiles/amontign.xpm
-WE ./xpmfiles/correcteur.xpm
-EA ./xpmfiles/syakovle.xpm
+SO ./xpmfiles/00.xpm
+WE ./xpmfiles/00.xpm
+EA ./xpmfiles/00.xpm
 
 F 100,100,100
 C 100,100,190
